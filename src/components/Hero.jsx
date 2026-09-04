@@ -5,6 +5,7 @@ import HandMockup3D from './HandMockup3D';
 export default function Hero() {
   return (
     <section
+      className="hero-scroll-section"
       style={{
         paddingTop: '130px',
         paddingBottom: '70px',
@@ -28,8 +29,9 @@ export default function Hero() {
           {/* Coluna de Texto */}
           <div style={{ maxWidth: '620px' }}>
             
-            {/* Pill Badge Minimalista (sem sombras pesadas) */}
+            {/* Pill Badge Minimalista */}
             <div
+              className="hero-badge-enter"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -56,22 +58,26 @@ export default function Hero() {
               </span>
             </div>
 
-            {/* Headline Principal */}
-            <h1
-              style={{
-                fontSize: 'clamp(34px, 4.8vw, 56px)',
-                fontWeight: 600,
-                color: 'var(--color-ink)',
-                lineHeight: 1.15,
-                letterSpacing: '-0.03em',
-                marginBottom: '20px'
-              }}
-            >
-              Vistorias prediais andar por andar. Sem papel, sem atrito.
-            </h1>
+            {/* Headline Principal com Máscara de Revelação (Apple / Linear style) */}
+            <div className="text-mask-wrapper" style={{ marginBottom: '20px' }}>
+              <h1
+                className="hero-headline-enter text-mask-child"
+                style={{
+                  fontSize: 'clamp(34px, 4.8vw, 56px)',
+                  fontWeight: 600,
+                  color: 'var(--color-ink)',
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.03em',
+                  margin: 0
+                }}
+              >
+                Vistorias prediais andar por andar. Sem papel, sem atrito.
+              </h1>
+            </div>
 
             {/* Subtítulo Direto com a Resolução */}
             <p
+              className="hero-sub-enter"
               style={{
                 fontSize: 'clamp(15px, 1.6vw, 17.5px)',
                 color: 'var(--color-mute)',
@@ -86,6 +92,7 @@ export default function Hero() {
 
             {/* Ações / CTAs */}
             <div
+              className="hero-cta-enter"
               style={{
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -105,6 +112,7 @@ export default function Hero() {
 
             {/* Bullet points de confirmação rápida */}
             <div
+              className="hero-bullets-enter"
               style={{
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -131,7 +139,7 @@ export default function Hero() {
           </div>
 
           {/* Coluna Direita: Mockup 3D com Mão Realista em Perspectiva */}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div className="hero-mockup-enter hand-mockup-scroll" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <HandMockup3D
               title="Vistoria Técnica de Campo"
               subtitle="Itens de inspeção de bombas, elevadores e áreas comuns"
@@ -142,6 +150,7 @@ export default function Hero() {
 
         {/* Faixa de Confiança / Logos Minimalistas em Tons de Cinza */}
         <div
+          className="hero-social-enter"
           style={{
             borderTop: '1px solid rgba(0, 0, 0, 0.08)',
             paddingTop: '36px',

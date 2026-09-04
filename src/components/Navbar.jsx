@@ -9,26 +9,26 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <header
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        transition: 'background-color 0.25s ease, border-color 0.25s ease',
-        background: scrolled ? 'rgba(245, 246, 248, 0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: '1px solid',
-        borderColor: scrolled ? 'rgba(16, 19, 23, 0.08)' : 'transparent',
-      }}
-    >
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          transition: 'background-color 0.25s ease, border-color 0.25s ease',
+          background: scrolled ? 'rgba(245, 246, 248, 0.85)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(16px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
+          borderBottom: '1px solid',
+          borderColor: scrolled ? 'rgba(16, 19, 23, 0.08)' : 'transparent',
+        }}
+      >
       <div className="container-hero" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
         
         {/* Logo Oficial Viston */}
@@ -138,6 +138,6 @@ export default function Navbar() {
           color: var(--color-ink) !important;
         }
       `}</style>
-    </header>
+      </header>
   );
 }

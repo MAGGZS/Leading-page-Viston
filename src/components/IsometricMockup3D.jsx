@@ -1,5 +1,6 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
+import { useMouseTilt } from '../hooks/useMouseTilt';
 
 /**
  * IsometricMockup3D - Inspirado na referência Patungans
@@ -11,8 +12,11 @@ export default function IsometricMockup3D({
   frontImage = null,
   backImage = null
 }) {
+  const [containerRef, tilt] = useMouseTilt(6);
+
   return (
     <div
+      ref={containerRef}
       style={{
         position: 'relative',
         width: '100%',
@@ -22,12 +26,14 @@ export default function IsometricMockup3D({
         perspective: '1400px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        cursor: 'grab'
       }}
     >
 
       {/* Celular de Trás (Secundário / Esquerda) */}
       <div
+        className="float-mockup-back"
         style={{
           position: 'absolute',
           top: '30px',
@@ -38,10 +44,10 @@ export default function IsometricMockup3D({
           background: 'linear-gradient(135deg, #262729 0%, #131415 100%)',
           padding: '8px',
           border: '1.5px solid rgba(255, 255, 255, 0.15)',
-          transform: 'rotateX(20deg) rotateY(-18deg) rotateZ(8deg)',
+          transform: `rotateX(${20 + tilt.x * 0.7}deg) rotateY(${-18 + tilt.y * 0.7}deg) rotateZ(8deg)`,
           boxShadow: '-20px 25px 50px rgba(0, 0, 0, 0.2)',
           zIndex: 2,
-          transition: 'transform 0.4s ease'
+          transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
         <div
@@ -106,6 +112,7 @@ export default function IsometricMockup3D({
 
       {/* Celular da Frente (Principal / Direita) */}
       <div
+        className="float-mockup-front"
         style={{
           position: 'absolute',
           top: '60px',
@@ -116,10 +123,10 @@ export default function IsometricMockup3D({
           background: 'linear-gradient(135deg, #2E2F32 0%, #161719 100%)',
           padding: '9px',
           border: '1.5px solid rgba(255, 255, 255, 0.22)',
-          transform: 'rotateX(18deg) rotateY(-14deg) rotateZ(6deg)',
+          transform: `rotateX(${18 + tilt.x * 1.1}deg) rotateY(${-14 + tilt.y * 1.1}deg) rotateZ(6deg)`,
           boxShadow: '-25px 35px 65px rgba(0, 0, 0, 0.28)',
           zIndex: 5,
-          transition: 'transform 0.4s ease'
+          transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
         <div

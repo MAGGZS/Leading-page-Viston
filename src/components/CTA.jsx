@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useInView } from '../hooks/useInView';
 
 export default function CTA() {
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [condos, setCondos] = useState('1-5');
+  const [sectionRef, isInView] = useInView({ threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,11 +15,16 @@ export default function CTA() {
   };
 
   return (
-    <section id="demonstracao" style={{ padding: '80px 0 100px', background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}>
+    <section
+      ref={sectionRef}
+      id="demonstracao"
+      style={{ padding: '80px 0 100px', background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}
+    >
       <div className="container">
         
         {/* Bloco de Apresentação Direto (Sem brilhos artificiais) */}
         <div
+          className={`reveal-item ${isInView ? 'is-visible' : ''}`}
           style={{
             maxWidth: '820px',
             margin: '0 auto',

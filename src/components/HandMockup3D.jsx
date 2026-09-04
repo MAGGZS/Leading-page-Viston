@@ -1,12 +1,13 @@
 import React from 'react';
 import { Plus, Smartphone } from 'lucide-react';
+import { useMouseTilt } from '../hooks/useMouseTilt';
 
 /**
  * HandMockup3D - Inspirado nas referências Mubly e Track Everything
  * 
  * Renderiza uma composição 3D realista de uma mão segurando o smartphone
- * em perspectiva diagonal elegante, com o espaço da tela vazio e pronto
- * para o usuário adicionar sua captura de tela através de `imageSrc`.
+ * em perspectiva diagonal elegante, com resposta interativa ao cursor (mouse tilt)
+ * e flutuação física sutil.
  */
 export default function HandMockup3D({
   imageSrc = null,
@@ -14,8 +15,12 @@ export default function HandMockup3D({
   subtitle = "Checklist técnico andar por andar",
   badge = "App Mobile em Campo"
 }) {
+  const [containerRef, tilt] = useMouseTilt(6);
+
   return (
     <div
+      ref={containerRef}
+      className="float-mockup-front"
       style={{
         position: 'relative',
         width: '100%',
@@ -24,7 +29,8 @@ export default function HandMockup3D({
         margin: '0 auto',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        cursor: 'grab'
       }}
     >
 
@@ -37,7 +43,7 @@ export default function HandMockup3D({
           transformStyle: 'preserve-3d'
         }}
       >
-        {/* Smartphone em Rotação 3D */}
+        {/* Smartphone em Rotação 3D com Tilt Interativo */}
         <div
           style={{
             width: '280px',
@@ -46,10 +52,10 @@ export default function HandMockup3D({
             background: 'linear-gradient(135deg, #2c2d30 0%, #151618 50%, #0d0e10 100%)',
             padding: '10px',
             position: 'relative',
-            transform: 'rotateY(-14deg) rotateX(12deg) rotateZ(3deg)',
+            transform: `rotateY(${-14 + tilt.y}deg) rotateX(${12 + tilt.x}deg) rotateZ(3deg)`,
             boxShadow: '-25px 35px 65px -10px rgba(0, 0, 0, 0.28), -5px 10px 20px rgba(0,0,0,0.15)',
             border: '1.5px solid rgba(255, 255, 255, 0.18)',
-            transition: 'transform 0.4s cubic-bezier(0.32, 0.72, 0, 1)'
+            transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
         >
           {/* Botões laterais usinados */}

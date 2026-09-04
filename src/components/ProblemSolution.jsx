@@ -1,7 +1,10 @@
 import React from 'react';
-import { X, Check, ArrowRight } from 'lucide-react';
+import { X, Check } from 'lucide-react';
+import { useInView } from '../hooks/useInView';
 
 export default function ProblemSolution() {
+  const [sectionRef, isInView] = useInView({ threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
   const comparisons = [
     {
       beforeTitle: "Pranchetas de Papel & Planilhas Mortas",
@@ -30,11 +33,18 @@ export default function ProblemSolution() {
   ];
 
   return (
-    <section id="resolucao" style={{ padding: '96px 0', background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}>
+    <section
+      ref={sectionRef}
+      id="resolucao"
+      style={{ padding: '96px 0', background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}
+    >
       <div className="container">
         
         {/* Cabeçalho */}
-        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 60px' }}>
+        <div
+          className={`reveal-item ${isInView ? 'is-visible' : ''}`}
+          style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 60px' }}
+        >
           <span
             style={{
               display: 'inline-block',
@@ -69,70 +79,76 @@ export default function ProblemSolution() {
           {comparisons.map((item, idx) => (
             <div
               key={idx}
-              className="card-viston"
-              style={{
-                padding: '28px 26px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '18px'
-              }}
+              className={`reveal-item delay-${idx + 1} ${isInView ? 'is-visible' : ''}`}
+              style={{ height: '100%' }}
             >
-              {/* O Cenário Antigo */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                <div
-                  style={{
-                    width: '24px',
-                    height: '24px',
-                    borderRadius: '50%',
-                    background: '#FEE2E2',
-                    color: '#DC2626',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    marginTop: '2px'
-                  }}
-                >
-                  <X size={14} strokeWidth={3} />
+              <div
+                className="card-viston"
+                style={{
+                  height: '100%',
+                  padding: '28px 26px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '18px'
+                }}
+              >
+                {/* O Cenário Antigo */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                  <div
+                    style={{
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: '50%',
+                      background: '#FEE2E2',
+                      color: '#DC2626',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      marginTop: '2px'
+                    }}
+                  >
+                    <X size={14} strokeWidth={3} />
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#991B1B', marginBottom: '3px' }}>
+                      {item.beforeTitle}
+                    </h4>
+                    <p style={{ fontSize: '13px', color: 'var(--color-mute)', lineHeight: 1.5 }}>
+                      {item.beforeDesc}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#991B1B', marginBottom: '3px' }}>
-                    {item.beforeTitle}
-                  </h4>
-                  <p style={{ fontSize: '13px', color: 'var(--color-mute)', lineHeight: 1.5 }}>
-                    {item.beforeDesc}
-                  </p>
-                </div>
-              </div>
 
-              {/* Divisor sutil */}
-              <div style={{ height: '1px', background: 'var(--color-line)', margin: '2px 0' }} />
+                {/* Divisor sutil */}
+                <div style={{ height: '1px', background: 'var(--color-line)', margin: '2px 0' }} />
 
-              {/* A Resolução Viston */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                <div
-                  style={{
-                    width: '24px',
-                    height: '24px',
-                    borderRadius: '50%',
-                    background: '#DCFCE7',
-                    color: '#16A34A',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    marginTop: '2px'
-                  }}
-                >
-                  <Check size={14} strokeWidth={3} />
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '3px' }}>
-                    {item.afterTitle}
-                  </h4>
-                  <p style={{ fontSize: '13px', color: 'var(--color-ink)', opacity: 0.85, lineHeight: 1.5 }}>
-                    {item.afterDesc}
-                  </p>
+                {/* A Resolução Viston */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                  <div
+                    style={{
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: '50%',
+                      background: '#DCFCE7',
+                      color: '#16A34A',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      marginTop: '2px'
+                    }}
+                  >
+                    <Check size={14} strokeWidth={3} />
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '3px' }}>
+                      {item.afterTitle}
+                    </h4>
+                    <p style={{ fontSize: '13px', color: 'var(--color-ink)', opacity: 0.85, lineHeight: 1.5 }}>
+                      {item.afterDesc}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
