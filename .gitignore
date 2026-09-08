@@ -1,5 +1,15 @@
+# Dependencies & Build
 node_modules/
 .vite/
 dist/
+
+# Agents & Skills
+.agents/
+agents/
+skills/
+.skills/
+
+# OS & Local configs
 .DS_Store
 *.local
+.env*.local
