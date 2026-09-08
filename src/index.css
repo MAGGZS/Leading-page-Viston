@@ -7,11 +7,8 @@
 }
 
 :root {
-  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Tokens do Viston (mesmo padrão de app/lib/theme.js e app/globals.css) */
-  --color-page: #F5F6F8;
   /* Tokens Oficiais do Viston - Engenharia & Gestão Predial */
   --color-page: #F8F9FA;
   --color-card: #FFFFFF;
@@ -19,42 +16,30 @@
   --color-line: rgba(16, 19, 23, 0.08);
   --color-accent: #F5C518;
   --color-accent-hover: #E8B800;
-  --color-accent-soft: rgba(245, 197, 24, 0.18);
   --color-accent-soft: rgba(245, 197, 24, 0.16);
   --color-accent-ink: #8A6B00;
   --color-onaccent: #000000;
 
-  /* Tipografia */
-  --color-ink: rgba(16, 19, 23, 0.92);
-  --color-mute: rgba(16, 19, 23, 0.64);
-  --color-faint: rgba(16, 19, 23, 0.52);
   /* Tipografia & Contraste */
   --color-ink: #101317;
   --color-ink-secondary: rgba(16, 19, 23, 0.72);
   --color-mute: rgba(16, 19, 23, 0.60);
   --color-faint: rgba(16, 19, 23, 0.44);
 
-  /* Escala de raio do repositório (R.card = 12, R.control = 16, R.pill = 12, R.badge = 999) */
-  --radius-card: 12px;
-  --radius-control: 16px;
-  --radius-pill: 12px;
-  /* Escala de Raios (Design Engineering Apple / Linear Standard) */
+  /* Escala de Raios */
   --radius-card: 16px;
   --radius-control: 12px;
   --radius-pill: 999px;
   --radius-badge: 999px;
 
-  /* Fio de separação sutil (boxShadow ao invés de bordas pesadas, sem glow) */
   /* Sombras Multicamadas em Profundidade Suave (Emil Kowalski Craft) */
   --card-border: 1px solid rgba(16, 19, 23, 0.08);
   --card-ring: 0 0 0 1px rgba(16, 19, 23, 0.08);
-  --shadow-subtle: 0 1px 2px rgba(16, 19, 23, 0.04);
   --shadow-subtle: 0 1px 3px rgba(16, 19, 23, 0.04), 0 4px 12px rgba(16, 19, 23, 0.02);
   --shadow-card: 0 2px 5px rgba(16, 19, 23, 0.04), 0 10px 28px -6px rgba(16, 19, 23, 0.06);
   --shadow-elevated: 0 8px 30px -4px rgba(16, 19, 23, 0.10), 0 20px 48px -10px rgba(16, 19, 23, 0.08);
 
-  /* Curvas e Tokens de Animação Profissional (Emil Kowalski / Apple Standards) */
-  /* Curvas de Movimento e Física (Emil Kowalski / Apple Standards) */
+  /* Curvas de Movimento e Física (Apple Standards) */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
@@ -70,7 +55,6 @@ body {
   font-family: var(--font-family);
   background-color: var(--color-page);
   color: var(--color-ink);
-  line-height: 1.55;
   line-height: 1.6;
   font-weight: 400;
   overflow-x: hidden;
@@ -78,26 +62,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hierarquia oficial do Viston: 900 wordmark, 600 titula, 500 ação, 400 corpo */
 /* Tipografia de Precisão Suíça / Engenharia */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family);
-  letter-spacing: -0.025em;
   font-weight: 600;
   color: var(--color-ink);
 }
 
-h1 {
-  letter-spacing: -0.035em;
-}
-
-h2 {
-  letter-spacing: -0.028em;
-}
-
-h3 {
-  letter-spacing: -0.02em;
-}
+h1 { letter-spacing: -0.035em; }
+h2 { letter-spacing: -0.028em; }
+h3 { letter-spacing: -0.02em; }
 
 a {
   color: inherit;
@@ -114,36 +88,23 @@ button {
 /* Containers Padronizados */
 .container {
   width: 100%;
-  max-width: 1200px;
   max-width: 1220px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
   padding-left: clamp(20px, 3.5vw, 32px);
   padding-right: clamp(20px, 3.5vw, 32px);
 }
 
-/* Container compacto e equilibrado exclusivo para a primeira parte (Navbar e Hero) */
 .container-hero {
   width: 100%;
-  max-width: 1280px;
   max-width: 1260px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 28px;
-  padding-right: 28px;
   padding-left: clamp(20px, 3.5vw, 32px);
   padding-right: clamp(20px, 3.5vw, 32px);
 }
 
-@media (max-width: 768px) {
-  .container-hero {
-    padding-left: 20px;
-    padding-right: 20px;
-/* -------------------------------------------------------------
-   SISTEMA DE SEÇÕES ESPAÇOSAS E RITMO VERTICAL NOBRE (Sem Espremer)
-------------------------------------------------------------- */
+/* Ritmo Vertical Nobre e Espaçoso */
 .section-stage {
   padding-top: clamp(80px, 10vh, 120px);
   padding-bottom: clamp(80px, 10vh, 120px);
@@ -159,6 +120,7 @@ button {
   overflow: hidden;
 }
 
+/* Grids Fluidos Responsivos */
 .hero-grid-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
@@ -173,7 +135,6 @@ button {
   }
 }
 
-/* Botões com micro-interações táteis e feedback instantâneo (Emil Kowalski recipe) */
 .two-sides-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -215,9 +176,7 @@ button {
   }
 }
 
-/* -------------------------------------------------------------
-   BOTÕES COM RESPOSTA TÁTIL INSTANTÂNEA (:active scale 0.97)
-------------------------------------------------------------- */
+/* Botões com Resposta Tátil Instantânea (:active scale 0.97) */
 .btn-gold {
   display: inline-flex;
   align-items: center;
@@ -225,14 +184,10 @@ button {
   gap: 8px;
   background: var(--color-accent);
   color: var(--color-onaccent);
-  padding: 11px 22px;
   padding: 12px 26px;
   border-radius: var(--radius-control);
-  font-weight: 500;
   font-weight: 600;
   font-size: 14.5px;
-  border: none;
-  transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 1px 3px rgba(245, 197, 24, 0.25), 0 4px 14px rgba(245, 197, 24, 0.18);
   transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
@@ -260,13 +215,10 @@ button {
   gap: 8px;
   background: #101317;
   color: #FFFFFF;
-  padding: 11px 22px;
   padding: 12px 26px;
   border-radius: var(--radius-control);
   font-weight: 500;
   font-size: 14.5px;
-  border: none;
-  transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
@@ -294,13 +246,11 @@ button {
   gap: 8px;
   background: transparent;
   color: var(--color-ink);
-  padding: 10px 20px;
   padding: 11px 22px;
   border-radius: var(--radius-control);
   font-weight: 500;
   font-size: 14px;
   border: 1px solid var(--color-line);
-  transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), border-color 160ms var(--ease-out);
   transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out), border-color 140ms var(--ease-out);
   user-select: none;
 }
@@ -314,443 +264,135 @@ button {
   transform: scale(0.97);
 }
 
-/* Hover gating estrito: apenas ponteiros precisos (desktop) recebem transform */
-@media (hover: hover) and (pointer: fine) {
-  .btn-gold:hover {
-    background: var(--color-accent-hover);
-  }
-  .btn-dark:hover {
-    background: #242930;
-  }
-  .btn-ghost:hover {
-    background: var(--color-chip);
-    border-color: rgba(16, 19, 23, 0.14);
-  }
-  .btn-gold:hover svg, .btn-dark:hover svg, .btn-ghost:hover svg {
-    transform: translateX(3px);
-  }
-  .btn-gold svg, .btn-dark svg, .btn-ghost svg {
-    transition: transform 160ms var(--ease-out);
-  }
-}
-
-/* Cartão Viston: elevação física sem recalcular layout */
-/* -------------------------------------------------------------
-   CARD VISTON (Superfícies Nítidas & Sombras Multicamadas)
-------------------------------------------------------------- */
+/* Superfícies Nítidas & Sombras Multicamadas */
 .card-viston {
   background: var(--color-card);
   border-radius: var(--radius-card);
-  box-shadow: var(--card-ring);
-  border: none;
-  transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out), background-color 200ms var(--ease-out);
-  position: relative;
   border: var(--card-border);
   box-shadow: var(--shadow-card);
   transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out), border-color 220ms var(--ease-out);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .card-viston:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 36px -8px rgba(16, 19, 23, 0.08), var(--card-ring);
-    background: #FCFCFD;
-  }
 .card-viston:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-elevated);
   border-color: rgba(16, 19, 23, 0.14);
 }
 
-/* Card Destaque (Plano Profissional) com pulso elegante de respiração */
-/* Destaque sutil para o card selecionado/popular */
 .card-featured-glow {
-  animation: featuredCardPulse 4s ease-in-out infinite;
   border: 2px solid var(--color-accent) !important;
   box-shadow: 0 4px 20px rgba(245, 197, 24, 0.15), var(--shadow-elevated) !important;
 }
 
-@keyframes featuredCardPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 2px var(--color-accent), 0 8px 24px -4px rgba(245, 197, 24, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 0 2px var(--color-accent), 0 16px 36px -4px rgba(245, 197, 24, 0.38);
-  }
-}
-
-/* -------------------------------------------------------------
-   SISTEMA DE ANIMAÇÃO DE ROLAGEM DIFERENCIADA (Emil Kowalski & Apple Standards)
-   - Resolução física por contexto:
-     * ProblemSolution: Encaixe 3D alternado dos flancos (.reveal-dock-left / .reveal-dock-right)
-     * TwoSidesShowcase: Deslizamento estrutural lateral (.reveal-slide-left) + Ascensão isométrica 3D (.reveal-isometric-dock)
-     * Pricing: Desdobramento em leque 3D de baralho (.reveal-fan-left / .reveal-fan-center / .reveal-fan-right)
-     * CTA: Abertura arquitetônica em máscara (.reveal-aperture)
-     * Títulos/Headers: Elevação e desfoque suave de profundidade (.reveal-item / .reveal-curtain)
-   - Timings orgânicos: 750ms a 950ms com curva customizada --ease-drawer
-   - Suporte nativo a scroll scrubber com animation-timeline: view()
-   REVELAÇÕES DE MOVIMENTO EMIL KOWALSKI (Zero Blur, Física Real)
-------------------------------------------------------------- */
-
-/* 1. Elevação geral com foco de profundidade */
-.reveal-item {
-  opacity: 0;
-  transform: translateY(32px) scale(0.97);
-  filter: blur(3px);
-  transition: opacity 1000ms var(--ease-out), transform 1050ms var(--ease-drawer), filter 1000ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 1000ms var(--ease-out), transform 1050ms var(--ease-drawer);
-  will-change: opacity, transform;
+/* Revelações de Movimento (Zero Blur, Física Real) */
 .text-mask-wrapper {
   overflow: hidden;
   display: block;
 }
 
-.reveal-item.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-/* 2. Encaixe 3D Flanco Esquerdo (ProblemSolution) */
-.reveal-dock-left {
 .reveal-text-line {
   display: inline-block;
   opacity: 0;
-  transform: perspective(1200px) rotateY(7deg) rotateZ(-1deg) translateY(36px) scale(0.95);
-  filter: blur(3px);
-  transition: opacity 1100ms var(--ease-out), transform 1150ms var(--ease-drawer), filter 1100ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 1100ms var(--ease-out), transform 1150ms var(--ease-drawer);
-  will-change: opacity, transform;
   transform: translateY(115%);
   transition: transform 1050ms var(--ease-drawer), opacity 950ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.reveal-dock-left.is-visible {
 .is-visible .reveal-text-line,
 .is-visible.reveal-text-line {
   opacity: 1;
-  transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(0) scale(1);
-  filter: blur(0);
   transform: translateY(0);
 }
 
-/* 3. Encaixe 3D Flanco Direito (ProblemSolution) */
-.reveal-dock-right {
 .reveal-badge-text {
   display: inline-block;
   opacity: 0;
-  transform: perspective(1200px) rotateY(-7deg) rotateZ(1deg) translateY(36px) scale(0.95);
-  filter: blur(3px);
-  transition: opacity 1100ms var(--ease-out), transform 1150ms var(--ease-drawer), filter 1100ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 1100ms var(--ease-out), transform 1150ms var(--ease-drawer);
-  will-change: opacity, transform;
   transform: translateY(-8px) scale(0.96);
   transition: transform 750ms var(--ease-out), opacity 750ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.reveal-dock-right.is-visible {
 .is-visible .reveal-badge-text,
 .is-visible.reveal-badge-text {
   opacity: 1;
-  transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(0) scale(1);
-  filter: blur(0);
   transform: translateY(0) scale(1);
 }
 
-/* 4. Deslizamento Lateral Estrutural (TwoSidesShowcase Pilares) */
-.reveal-slide-left {
 .reveal-sub-text {
   opacity: 0;
-  transform: translateX(-40px) scale(0.96);
-  filter: blur(3px);
-  transition: opacity 1050ms var(--ease-out), transform 1150ms var(--ease-drawer), filter 1050ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 1050ms var(--ease-out), transform 1150ms var(--ease-drawer);
-  will-change: opacity, transform;
   transform: translateY(16px);
   transition: transform 900ms var(--ease-drawer) 200ms, opacity 900ms var(--ease-out) 200ms;
   will-change: transform, opacity;
 }
 
-.reveal-slide-left.is-visible {
 .is-visible .reveal-sub-text,
 .is-visible.reveal-sub-text {
   opacity: 1;
-  transform: translateX(0) scale(1);
-  filter: blur(0);
   transform: translateY(0);
 }
 
-/* 5. Ascensão Isométrica 3D Profunda (TwoSidesShowcase Maquete) */
-.reveal-isometric-dock {
-  opacity: 0;
-  transform: perspective(1400px) rotateX(26deg) rotateY(-14deg) translateY(54px) scale(0.92);
-  filter: blur(4px);
-  transition: opacity 1200ms var(--ease-out), transform 1300ms var(--ease-drawer), filter 1200ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 1200ms var(--ease-out), transform 1300ms var(--ease-drawer);
-  will-change: opacity, transform;
-}
 .line-delay-1 { transition-delay: 80ms; }
 .line-delay-2 { transition-delay: 220ms; }
 .line-delay-3 { transition-delay: 360ms; }
 
-.reveal-isometric-dock.is-visible {
-  opacity: 1;
-  transform: perspective(1400px) rotateX(16deg) rotateY(-10deg) translateY(0) scale(1);
-  filter: blur(0);
-}
-
-/* 6. Desdobramento em Leque 3D: Carta Esquerda (Pricing Essencial) */
-.reveal-fan-left {
-/* Encaixes de Cards Físicos */
+/* Encaixes Físicos de Cards */
 .reveal-dock-left {
   opacity: 0;
-  transform: perspective(1200px) rotateZ(-3.5deg) translateY(44px) scale(0.94);
-  filter: blur(3px);
-  transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer), filter 1150ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer);
-  will-change: opacity, transform;
   transform: perspective(1000px) rotateY(6deg) translateY(24px) scale(0.97);
   transition: transform 1000ms var(--ease-drawer), opacity 900ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.reveal-fan-left.is-visible {
-  opacity: 1;
-  transform: perspective(1200px) rotateZ(0deg) translateY(0) scale(1);
-  filter: blur(0);
-}
-
-/* 7. Elevação de Destaque Central (Pricing Profissional) */
-.reveal-fan-center {
 .reveal-dock-right {
   opacity: 0;
-  transform: translateY(52px) scale(0.94);
-  filter: blur(3px);
-  transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer), filter 1150ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer);
-  will-change: opacity, transform;
   transform: perspective(1000px) rotateY(-6deg) translateY(24px) scale(0.97);
   transition: transform 1000ms var(--ease-drawer), opacity 900ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.reveal-fan-center.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-/* 8. Desdobramento em Leque 3D: Carta Direita (Pricing Corporativo) */
-.reveal-fan-right {
 .reveal-slide-left {
   opacity: 0;
-  transform: perspective(1200px) rotateZ(3.5deg) translateY(44px) scale(0.94);
-  filter: blur(3px);
-  transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer), filter 1150ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer);
-  will-change: opacity, transform;
   transform: translateX(-32px) scale(0.98);
   transition: transform 1000ms var(--ease-drawer), opacity 900ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.reveal-fan-right.is-visible {
-  opacity: 1;
-  transform: perspective(1200px) rotateZ(0deg) translateY(0) scale(1);
-  filter: blur(0);
-}
-
-/* 9. Abertura Arquitetônica em Máscara (CTA) */
-.reveal-aperture {
 .reveal-isometric-dock {
   opacity: 0;
-  clip-path: inset(8% 4% 8% 4% round 24px);
-  transform: translateY(36px) scale(0.96);
-  filter: blur(4px);
-  transition: opacity 1150ms var(--ease-out), clip-path 1250ms var(--ease-drawer), transform 1250ms var(--ease-drawer), filter 1150ms var(--ease-out);
-  will-change: opacity, clip-path, transform, filter;
-  transition: opacity 1150ms var(--ease-out), clip-path 1250ms var(--ease-drawer), transform 1250ms var(--ease-drawer);
-  will-change: opacity, clip-path, transform;
   transform: translateY(36px) scale(0.95);
   transition: transform 1150ms var(--ease-drawer), opacity 1000ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.reveal-aperture.is-visible {
-  opacity: 1;
-  clip-path: inset(0 0 0 0 round 16px);
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-/* Revelação com elasticidade / mola */
-.reveal-spring {
 .reveal-fan-left {
   opacity: 0;
-  transform: translateY(24px) scale(0.96);
-  filter: blur(2px);
-  transition: opacity 900ms var(--ease-out), transform 950ms var(--ease-spring), filter 900ms var(--ease-out);
-  will-change: opacity, transform, filter;
-  transition: opacity 900ms var(--ease-out), transform 950ms var(--ease-spring);
-  will-change: opacity, transform;
   transform: rotate(-3deg) translateY(28px) scale(0.96);
   transition: transform 1050ms var(--ease-drawer), opacity 950ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.reveal-spring.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-/* Revelação em cortina com clip-path */
-.reveal-curtain {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 1050ms var(--ease-drawer);
-  will-change: clip-path;
-}
-
-.reveal-curtain.is-visible {
-  clip-path: inset(0 0 0 0);
-}
-
-/* Stagger cadenciado: 40ms, 200ms, 360ms, 520ms, 680ms */
-.delay-1 { transition-delay: 40ms; }
-.delay-2 { transition-delay: 200ms; }
-.delay-3 { transition-delay: 360ms; }
-.delay-4 { transition-delay: 520ms; }
-.delay-5 { transition-delay: 680ms; }
-
-/* Micro-spring no ícone quando o item entra na tela */
-.is-visible .icon-spring-pop {
-  animation: iconSpringPop 800ms var(--ease-spring) 280ms backwards;
-}
-
-@keyframes iconSpringPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.7) rotate(-12deg);
-  }
-  70% {
-    transform: scale(1.15) rotate(2deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-/* Efeito Sonar no Badge do Hero (Live Signal) */
-.sonar-beacon {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sonar-beacon::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  animation: sonarPing 2.4s var(--ease-out) infinite;
-  pointer-events: none;
-}
-
-@keyframes sonarPing {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  70%, 100% {
-    transform: scale(2.6);
-    opacity: 0;
-  }
-}
-
-/* Entrada de texto com máscara (Apple / Linear style) */
-.text-mask-wrapper {
-  overflow: hidden;
-  display: block;
-}
-
-.text-mask-child {
-  display: inline-block;
-  animation: textSlideUp 700ms var(--ease-drawer) forwards;
-}
-
-@keyframes textSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Revelação Dinâmica de Frases & Letras na Rolagem (Linear / Apple / Emil Kowalski) */
-.reveal-text-line {
-  display: inline-block;
 .reveal-fan-center {
   opacity: 0;
-  transform: translateY(115%);
-  transition: transform 1100ms var(--ease-drawer), opacity 1000ms var(--ease-out);
   transform: translateY(36px) scale(0.96);
   transition: transform 1050ms var(--ease-drawer), opacity 950ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.is-visible .reveal-text-line,
-.is-visible.reveal-text-line {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-badge-text {
-  display: inline-block;
 .reveal-fan-right {
   opacity: 0;
-  transform: translateY(-10px) scale(0.96);
-  transition: transform 800ms var(--ease-out), opacity 800ms var(--ease-out);
   transform: rotate(3deg) translateY(28px) scale(0.96);
   transition: transform 1050ms var(--ease-drawer), opacity 950ms var(--ease-out);
   will-change: transform, opacity;
 }
 
-.is-visible .reveal-badge-text,
-.is-visible.reveal-badge-text {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.reveal-sub-text {
 .reveal-aperture {
   opacity: 0;
-  transform: translateY(18px);
-  transition: transform 950ms var(--ease-drawer) 260ms, opacity 950ms var(--ease-out) 260ms;
-  will-change: transform, opacity;
   clip-path: inset(8% 4% 8% 4% round 16px);
   transform: scale(0.97);
   transition: clip-path 1100ms var(--ease-drawer), transform 1100ms var(--ease-drawer), opacity 900ms var(--ease-out);
   will-change: clip-path, transform, opacity;
 }
 
-.is-visible .reveal-sub-text,
-.is-visible.reveal-sub-text {
 .is-visible.reveal-dock-left,
 .is-visible.reveal-dock-right,
 .is-visible.reveal-slide-left,
@@ -760,26 +402,18 @@ button {
 .is-visible.reveal-fan-right,
 .is-visible.reveal-aperture {
   opacity: 1;
-  transform: translateY(0);
   transform: none;
   clip-path: inset(0 0 0 0 round 16px);
 }
 
-/* Staggers entre linhas e frases (ritmo calmo e perceptível) */
-.line-delay-1 { transition-delay: 100ms; }
-.line-delay-2 { transition-delay: 260ms; }
-.line-delay-3 { transition-delay: 420ms; }
 .delay-1 { transition-delay: 60ms; }
 .delay-2 { transition-delay: 180ms; }
 .delay-3 { transition-delay: 300ms; }
 .delay-4 { transition-delay: 420ms; }
 
-/* Revelação interna dos cards (itens e listas) */
 /* Stagger interno em listas */
 .reveal-item-stagger {
   opacity: 0;
-  transform: translateY(14px);
-  transition: transform 750ms var(--ease-out), opacity 750ms var(--ease-out);
   transform: translateY(12px);
   transition: transform 650ms var(--ease-out), opacity 650ms var(--ease-out);
   will-change: transform, opacity;
@@ -790,12 +424,6 @@ button {
   transform: translateY(0);
 }
 
-.is-visible .reveal-item-stagger:nth-child(1) { transition-delay: 120ms; }
-.is-visible .reveal-item-stagger:nth-child(2) { transition-delay: 240ms; }
-.is-visible .reveal-item-stagger:nth-child(3) { transition-delay: 360ms; }
-.is-visible .reveal-item-stagger:nth-child(4) { transition-delay: 480ms; }
-.is-visible .reveal-item-stagger:nth-child(5) { transition-delay: 600ms; }
-.is-visible .reveal-item-stagger:nth-child(6) { transition-delay: 720ms; }
 .is-visible .reveal-item-stagger:nth-child(1) { transition-delay: 100ms; }
 .is-visible .reveal-item-stagger:nth-child(2) { transition-delay: 180ms; }
 .is-visible .reveal-item-stagger:nth-child(3) { transition-delay: 260ms; }
@@ -803,54 +431,25 @@ button {
 .is-visible .reveal-item-stagger:nth-child(5) { transition-delay: 420ms; }
 .is-visible .reveal-item-stagger:nth-child(6) { transition-delay: 500ms; }
 
-/* Flutuação física suave em gravidade zero */
-@keyframes floatPhone3D {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-7px); }
 /* Micro-pop tátil em ícones */
 .icon-spring-pop {
   transition: transform 260ms var(--ease-spring);
 }
-
-@keyframes floatPhone3DBack {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-9px); }
 .card-viston:hover .icon-spring-pop {
   transform: scale(1.12);
 }
 
-.float-mockup-front {
-  animation: floatPhone3D 6.5s ease-in-out infinite;
-}
-
-.float-mockup-back {
-  animation: floatPhone3DBack 8.5s ease-in-out infinite 0.6s;
-}
-
-/* -------------------------------------------------------------
-   COREOGRAFIA DE CARGA DO HERO (Emil Kowalski Single Orchestration)
-   COREOGRAFIA DE ENTRADA DO HERO
-------------------------------------------------------------- */
+/* Coreografia de Entrada do Hero */
 .hero-badge-enter {
-  animation: heroBadgeEnter 650ms var(--ease-out) 100ms backwards;
   animation: heroBadgeEnter 600ms var(--ease-out) 80ms backwards;
 }
 
 @keyframes heroBadgeEnter {
-  from {
-    opacity: 0;
-    transform: translateY(-8px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
   from { opacity: 0; transform: translateY(-8px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .hero-headline-enter {
-  animation: textSlideUp 1050ms var(--ease-drawer) 200ms backwards;
   animation: textSlideUp 1000ms var(--ease-drawer) 160ms backwards;
 }
 
@@ -860,42 +459,29 @@ button {
 }
 
 .hero-sub-enter {
-  animation: heroSubEnter 800ms var(--ease-out) 350ms backwards;
   animation: heroSubEnter 750ms var(--ease-out) 280ms backwards;
 }
 
 @keyframes heroSubEnter {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
   from { opacity: 0; transform: translateY(12px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .hero-cta-enter {
-  animation: heroSubEnter 800ms var(--ease-out) 480ms backwards;
   animation: heroSubEnter 750ms var(--ease-out) 380ms backwards;
 }
 
 .hero-bullets-enter {
-  animation: heroSubEnter 800ms var(--ease-out) 600ms backwards;
   animation: heroSubEnter 750ms var(--ease-out) 480ms backwards;
 }
 
 .hero-mockup-enter {
-  animation: heroMockupEnter 1200ms var(--ease-drawer) 260ms backwards;
   animation: heroMockupEnter 1150ms var(--ease-drawer) 220ms backwards;
 }
 
 @keyframes heroMockupEnter {
   from {
     opacity: 0;
-    transform: translateY(28px) scale(0.96) rotateY(-6deg);
     transform: translateY(32px) scale(0.95) rotateY(-8deg);
   }
   to {
@@ -905,94 +491,33 @@ button {
 }
 
 .hero-social-enter {
-  animation: heroSubEnter 850ms var(--ease-out) 720ms backwards;
   animation: heroSubEnter 800ms var(--ease-out) 580ms backwards;
 }
 
-/* Atmosfera sutil do CTA escuro */
-.cta-ambient-card {
-  position: relative;
-  background: radial-gradient(circle at 50% 0%, #1a1e26 0%, #101317 75%);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.3);
 /* Flutuação física suave em gravidade zero */
 @keyframes floatPhone3D {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
 }
 
-/* -------------------------------------------------------------
-   SISTEMA DE PROPORÇÃO RESPONSIVA E ENCAIXE DE TELAS (Viewport Fit)
-   Garante que o Hero e cada seção se adaptem sem cortar informações
-------------------------------------------------------------- */
-.hero-viewport-fit {
-  background: var(--color-page);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-sizing: border-box;
 @keyframes floatPhone3DBack {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
 }
 
-@media (min-width: 992px) {
-  .hero-viewport-fit {
-    min-height: 100vh;
-    min-height: 100dvh;
-    padding-top: clamp(74px, 9.5vh, 98px);
-    padding-bottom: clamp(14px, 2vh, 26px);
-  }
 .float-mockup-front {
   animation: floatPhone3D 6.5s ease-in-out infinite;
 }
 
-  .hero-viewport-fit .container-hero {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1;
-    height: 100%;
-  }
-
-  .hero-grid-fit {
-    display: grid;
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-    gap: clamp(20px, 3.5vw, 48px);
-    align-items: center;
-    flex: 1;
-    margin-bottom: clamp(12px, 2vh, 24px);
-  }
 .float-mockup-back {
   animation: floatPhone3DBack 8s ease-in-out infinite 0.5s;
 }
 
-@media (max-width: 991px) {
-  .hero-viewport-fit {
-    min-height: auto;
-    padding-top: 86px;
-    padding-bottom: 48px;
-  }
-
-  .hero-grid-fit {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 36px;
-    margin-bottom: 36px;
-  }
 /* Indicador sonar pulsar */
 .sonar-beacon {
   position: relative;
 }
 
-/* Scaler proporcional para o HandMockup3D */
-.hero-mockup-frame {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 .sonar-beacon::after {
   content: '';
   position: absolute;
@@ -1007,98 +532,14 @@ button {
   opacity: 0.6;
 }
 
-.hero-mockup-scaler {
-  transform-origin: center center;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
 @keyframes sonarPulse {
   0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
   100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
 }
 
-/* Em telas de laptop HD (1366x768, 1440x900) ou alturas compactas */
-@media (min-width: 992px) and (max-height: 860px) {
-  .hero-mockup-scaler {
-    transform: scale(0.82);
-  }
-}
-
-@media (min-width: 992px) and (max-height: 740px) {
-  .hero-mockup-scaler {
-    transform: scale(0.70);
-  }
-}
-
-@media (min-width: 992px) and (max-height: 660px) {
-  .hero-mockup-scaler {
-    transform: scale(0.62);
-  }
-}
-
-/* No mobile, adaptar proporção para não estourar a tela */
-@media (max-width: 768px) {
-  .hero-mockup-scaler {
-    transform: scale(0.80);
-    margin-top: -30px;
-    margin-bottom: -20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-mockup-scaler {
-    transform: scale(0.68);
-    margin-top: -50px;
-    margin-bottom: -40px;
-  }
-}
-
-/* Scaler proporcional para o IsometricMockup3D */
-.isometric-scaler {
-  transform-origin: center center;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-  max-width: 100%;
-}
-
-@media (max-width: 1120px) and (min-width: 769px) {
-  .isometric-scaler {
-    transform: scale(0.85);
-  }
-}
-
-@media (max-width: 768px) {
-  .isometric-scaler {
-    transform: scale(0.78);
-    margin: -20px auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .isometric-scaler {
-    transform: scale(0.64);
-    margin: -40px auto;
-  }
-}
-
-/* Padronização proporcional de seções */
-.section-proportional {
-  padding-top: clamp(48px, 6vh, 84px);
-  padding-bottom: clamp(48px, 6vh, 84px);
-}
-
-/* -------------------------------------------------------------
-   SISTEMA DE ADAPTAÇÃO PROPORCIONAL DE ÁREA (Viewport Proportions)
-   Adapta cada seção para ocupar harmoniosamente a proporção da tela
-   CARTÃO AMBIENTE NOTURNO DO CTA
-------------------------------------------------------------- */
-.section-viewport-fit {
+/* Cartão Ambiente Noturno do CTA */
 .cta-ambient-card {
   position: relative;
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   background: radial-gradient(circle at 50% -10%, #1e2430 0%, #101317 80%);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1106,83 +547,7 @@ button {
   overflow: hidden;
 }
 
-@media (min-width: 992px) {
-  .section-viewport-fit {
-    min-height: 100vh;
-    min-height: 100dvh;
-    padding-top: clamp(28px, 4.5vh, 56px);
-    padding-bottom: clamp(28px, 4.5vh, 56px);
-  }
-
-  .section-viewport-fit > .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-    width: 100%;
-  }
-
-  .two-sides-grid-fit {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: clamp(24px, 3.5vw, 44px);
-    align-items: center;
-  }
-
-  .pricing-grid-fit {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(14px, 1.8vw, 24px);
-    align-items: stretch;
-    width: 100%;
-    max-width: 1160px;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 991px) {
-  .section-viewport-fit {
-    min-height: auto;
-    padding-top: clamp(48px, 7vw, 72px);
-    padding-bottom: clamp(48px, 7vw, 72px);
-  }
-
-  .two-sides-grid-fit {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .pricing-grid-fit {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-}
-
-/* Redução proporcional de mockups isométricos em telas de altura compacta */
-@media (min-width: 992px) and (max-height: 860px) {
-  .isometric-scaler {
-    transform: scale(0.78);
-  }
-}
-
-@media (min-width: 992px) and (max-height: 740px) {
-  .isometric-scaler {
-    transform: scale(0.68);
-  }
-}
-
-@media (min-width: 992px) and (max-height: 660px) {
-  .isometric-scaler {
-    transform: scale(0.58);
-  }
-}
-
-/* Acessibilidade total: redução de movimento conforme preferência do sistema */
-/* -------------------------------------------------------------
-   ACESSIBILIDADE TOTAL (PREFERS-REDUCED-MOTION)
-------------------------------------------------------------- */
+/* Acessibilidade Total (prefers-reduced-motion) */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -1190,7 +555,6 @@ button {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal-item, .reveal-spring, .reveal-curtain,
   .reveal-dock-left, .reveal-dock-right, .reveal-slide-left,
   .reveal-isometric-dock, .reveal-fan-left, .reveal-fan-center,
   .reveal-fan-right, .reveal-aperture,
@@ -1198,7 +562,6 @@ button {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;
-    filter: none !important;
     animation: none !important;
   }
   .float-mockup-front, .float-mockup-back,
@@ -1210,5 +573,3 @@ button {
     transform: none !important;
   }
 }
-
-
