@@ -7,7 +7,7 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ background: '#F8F9FA', color: '#6C757D', padding: '72px 0 36px', borderTop: '1px solid rgba(0, 0, 0, 0.08)' }}>
+    <footer style={{ background: '#F8F9FA', color: '#6C757D', padding: 'clamp(44px, 6vh, 68px) 0 clamp(20px, 3vh, 32px)', borderTop: '1px solid rgba(0, 0, 0, 0.08)' }}>
       <div className="container">
         
         {/* Grade de Colunas */}
@@ -15,8 +15,8 @@ export default function Footer() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '48px',
-            marginBottom: '56px'
+            gap: 'clamp(24px, 3vw, 44px)',
+            marginBottom: 'clamp(28px, 4vh, 48px)'
           }}
         >
           {/* Coluna 1: Marca & Propósito */}

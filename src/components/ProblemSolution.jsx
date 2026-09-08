@@ -36,7 +36,7 @@ export default function ProblemSolution() {
   return (
     <section
       id="resolucao"
-      className="section-proportional"
+      className="section-viewport-fit"
       style={{ background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}
     >
       <div className="container">
@@ -45,42 +45,42 @@ export default function ProblemSolution() {
         <div
           ref={headerRef}
           className={`${headerInView ? 'is-visible' : ''}`}
-          style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto clamp(32px, 5vh, 56px)' }}
+          style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto clamp(16px, 2.8vh, 36px)' }}
         >
           <span
             className="reveal-badge-text"
             style={{
               display: 'inline-block',
-              fontSize: '12px',
+              fontSize: 'clamp(11px, 0.8vw, 12px)',
               fontWeight: 600,
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
               color: 'var(--color-mute)',
-              marginBottom: '12px'
+              marginBottom: 'clamp(6px, 1vh, 10px)'
             }}
           >
             A Resolução Concreta
           </span>
 
-          <div className="text-mask-wrapper" style={{ marginBottom: '14px' }}>
-            <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', color: 'var(--color-ink)', fontWeight: 600, margin: 0 }}>
+          <div className="text-mask-wrapper" style={{ marginBottom: 'clamp(6px, 1vh, 12px)' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 2.8vw, 36px)', color: 'var(--color-ink)', fontWeight: 600, margin: 0, lineHeight: 1.15 }}>
               <span className="reveal-text-line line-delay-1">Do improviso manual </span>{' '}
               <span className="reveal-text-line line-delay-2">à governança técnica predial</span>
             </h2>
           </div>
 
-          <p className="reveal-sub-text" style={{ fontSize: '15.5px', color: 'var(--color-mute)', lineHeight: 1.6 }}>
+          <p className="reveal-sub-text" style={{ fontSize: 'clamp(13px, 1vw, 15px)', color: 'var(--color-mute)', lineHeight: 1.5, margin: 0 }}>
             O Viston elimina as quatro maiores fontes de atrito na rotina de condomínios e administradoras:
           </p>
         </div>
 
-        {/* Grade de Comparação 2x2 Clean */}
+        {/* Grade de Comparação 2x2 Clean Proporcional */}
         <div
           ref={cardsRef}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
-            gap: 'clamp(16px, 2.5vw, 24px)'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
+            gap: 'clamp(10px, 1.6vh, 20px)'
           }}
         >
           {comparisons.map((item, idx) => (
@@ -93,18 +93,18 @@ export default function ProblemSolution() {
                 className="card-viston"
                 style={{
                   height: '100%',
-                  padding: '28px 26px',
+                  padding: 'clamp(14px, 1.8vh, 22px) clamp(16px, 1.8vw, 24px)',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '18px'
+                  gap: 'clamp(10px, 1.4vh, 14px)'
                 }}
               >
                 {/* O Cenário Antigo */}
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                   <div
                     style={{
-                      width: '24px',
-                      height: '24px',
+                      width: '22px',
+                      height: '22px',
                       borderRadius: '50%',
                       background: '#FEE2E2',
                       color: '#DC2626',
@@ -115,28 +115,28 @@ export default function ProblemSolution() {
                       marginTop: '2px'
                     }}
                   >
-                    <X size={14} strokeWidth={3} />
+                    <X size={13} strokeWidth={3} />
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#991B1B', marginBottom: '3px' }}>
+                    <h4 style={{ fontSize: 'clamp(13px, 0.95vw, 14px)', fontWeight: 600, color: '#991B1B', marginBottom: '2px' }}>
                       {item.beforeTitle}
                     </h4>
-                    <p style={{ fontSize: '13px', color: 'var(--color-mute)', lineHeight: 1.5 }}>
+                    <p style={{ fontSize: 'clamp(12px, 0.85vw, 12.8px)', color: 'var(--color-mute)', lineHeight: 1.45 }}>
                       {item.beforeDesc}
                     </p>
                   </div>
                 </div>
 
                 {/* Divisor sutil */}
-                <div style={{ height: '1px', background: 'var(--color-line)', margin: '2px 0' }} />
+                <div style={{ height: '1px', background: 'var(--color-line)' }} />
 
                 {/* A Resolução Viston */}
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                   <div
                     className="icon-spring-pop"
                     style={{
-                      width: '24px',
-                      height: '24px',
+                      width: '22px',
+                      height: '22px',
                       borderRadius: '50%',
                       background: '#DCFCE7',
                       color: '#16A34A',
@@ -147,13 +147,13 @@ export default function ProblemSolution() {
                       marginTop: '2px'
                     }}
                   >
-                    <Check size={14} strokeWidth={3} />
+                    <Check size={13} strokeWidth={3} />
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '3px' }}>
+                    <h4 style={{ fontSize: 'clamp(13px, 0.95vw, 14px)', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '2px' }}>
                       {item.afterTitle}
                     </h4>
-                    <p style={{ fontSize: '13px', color: 'var(--color-ink)', opacity: 0.85, lineHeight: 1.5 }}>
+                    <p style={{ fontSize: 'clamp(12px, 0.85vw, 12.8px)', color: 'var(--color-ink)', opacity: 0.88, lineHeight: 1.45 }}>
                       {item.afterDesc}
                     </p>
                   </div>

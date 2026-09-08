@@ -68,7 +68,7 @@ export default function Pricing() {
   return (
     <section
       id="planos"
-      className="section-proportional"
+      className="section-viewport-fit"
       style={{ background: 'var(--color-page)', borderTop: '1px solid var(--color-line)' }}
     >
       <div className="container">
@@ -77,44 +77,39 @@ export default function Pricing() {
         <div
           ref={headerRef}
           className={`${headerInView ? 'is-visible' : ''}`}
-          style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto clamp(32px, 5vh, 56px)' }}
+          style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto clamp(14px, 2.5vh, 32px)' }}
         >
           <span
             className="reveal-badge-text"
             style={{
               display: 'inline-block',
-              fontSize: '12px',
+              fontSize: 'clamp(11px, 0.8vw, 12px)',
               fontWeight: 600,
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
               color: 'var(--color-mute)',
-              marginBottom: '12px'
+              marginBottom: 'clamp(6px, 1vh, 10px)'
             }}
           >
             Planos & Licenças
           </span>
 
-          <div className="text-mask-wrapper" style={{ marginBottom: '14px' }}>
-            <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', color: 'var(--color-ink)', fontWeight: 600, margin: 0 }}>
+          <div className="text-mask-wrapper" style={{ marginBottom: 'clamp(6px, 1vh, 12px)' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 2.8vw, 36px)', color: 'var(--color-ink)', fontWeight: 600, margin: 0, lineHeight: 1.15 }}>
               <span className="reveal-text-line line-delay-1">Previsibilidade total e </span>{' '}
               <span className="reveal-text-line line-delay-2">sem surpresas no orçamento</span>
             </h2>
           </div>
 
-          <p className="reveal-sub-text" style={{ fontSize: '15.5px', color: 'var(--color-mute)', lineHeight: 1.6 }}>
+          <p className="reveal-sub-text" style={{ fontSize: 'clamp(13px, 1vw, 15px)', color: 'var(--color-mute)', lineHeight: 1.5, margin: 0 }}>
             Planos dimensionados para o tamanho da sua operação predial, com ativação imediata:
           </p>
         </div>
 
-        {/* 3 Cartões de Preço em Leque com Destaque Central */}
+        {/* 3 Cartões de Preço em Leque Proporcionais */}
         <div
           ref={cardsRef}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 'clamp(18px, 2.5vw, 24px)',
-            alignItems: 'stretch'
-          }}
+          className="pricing-grid-fit"
         >
           {plans.map((plan, idx) => {
             const fanClass = idx === 0 ? 'reveal-fan-left' : idx === 1 ? 'reveal-fan-center' : 'reveal-fan-right';
@@ -128,7 +123,7 @@ export default function Pricing() {
                   className={`card-viston ${plan.popular ? 'card-featured-glow' : ''}`}
                   style={{
                     width: '100%',
-                    padding: 'clamp(28px, 3.2vw, 36px) clamp(20px, 2.4vw, 30px)',
+                    padding: 'clamp(20px, 2.4vh, 30px) clamp(16px, 1.6vw, 24px)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -144,8 +139,8 @@ export default function Pricing() {
                     <div
                       style={{
                         position: 'absolute',
-                        top: '-12px',
-                        left: '28px',
+                        top: '-11px',
+                        left: '24px',
                         background: 'var(--color-accent)',
                         color: 'var(--color-onaccent)',
                         padding: '3px 12px',
@@ -161,34 +156,34 @@ export default function Pricing() {
 
                   <div>
                     {/* Nome do Plano */}
-                    <h3 style={{ fontSize: '20px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '6px' }}>
+                    <h3 style={{ fontSize: 'clamp(17px, 1.2vw, 19px)', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '4px' }}>
                       {plan.name}
                     </h3>
 
-                    <p style={{ fontSize: '13px', color: 'var(--color-mute)', lineHeight: 1.5, minHeight: '38px', marginBottom: '24px' }}>
+                    <p style={{ fontSize: 'clamp(11.5px, 0.8vw, 12.5px)', color: 'var(--color-mute)', lineHeight: 1.45, minHeight: 'clamp(28px, 3vh, 36px)', marginBottom: 'clamp(12px, 1.6vh, 18px)' }}>
                       {plan.tagline}
                     </p>
 
                     {/* Preço */}
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '28px', paddingBottom: '24px', borderBottom: '1px solid var(--color-line)' }}>
-                      <span style={{ fontSize: '34px', fontWeight: 600, color: 'var(--color-ink)', letterSpacing: '-0.03em' }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: 'clamp(14px, 1.8vh, 20px)', paddingBottom: 'clamp(12px, 1.6vh, 18px)', borderBottom: '1px solid var(--color-line)' }}>
+                      <span style={{ fontSize: 'clamp(28px, 2.2vw, 34px)', fontWeight: 600, color: 'var(--color-ink)', letterSpacing: '-0.03em' }}>
                         {plan.price}
                       </span>
                       {plan.period && (
-                        <span style={{ fontSize: '14px', color: 'var(--color-mute)', fontWeight: 400 }}>
+                        <span style={{ fontSize: '13px', color: 'var(--color-mute)', fontWeight: 400 }}>
                           {plan.period}
                         </span>
                       )}
                     </div>
 
                     {/* Lista de Recursos */}
-                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '36px' }}>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'clamp(7px, 1vh, 11px)', marginBottom: 'clamp(16px, 2.2vh, 26px)' }}>
                       {plan.features.map((feature, fIdx) => (
-                        <li key={fIdx} className="reveal-item-stagger" style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: 'var(--color-ink)', lineHeight: 1.45 }}>
+                        <li key={fIdx} className="reveal-item-stagger" style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: 'clamp(11.5px, 0.82vw, 12.8px)', color: 'var(--color-ink)', lineHeight: 1.4 }}>
                           <div
                             style={{
-                              width: '18px',
-                              height: '18px',
+                              width: '16px',
+                              height: '16px',
                               borderRadius: '50%',
                               background: 'var(--color-chip)',
                               display: 'flex',
@@ -199,7 +194,7 @@ export default function Pricing() {
                               color: 'var(--color-ink)'
                             }}
                           >
-                            <Check size={12} strokeWidth={2.5} />
+                            <Check size={11} strokeWidth={2.5} />
                           </div>
                           <span>{feature}</span>
                         </li>
@@ -211,10 +206,10 @@ export default function Pricing() {
                   <a
                     href={plan.href}
                     className={plan.buttonClass}
-                    style={{ width: '100%', justifyContent: 'center' }}
+                    style={{ width: '100%', justifyContent: 'center', padding: 'clamp(9px, 1.2vh, 11px) 18px', fontSize: 'clamp(12.5px, 0.88vw, 13.5px)' }}
                   >
                     <span>{plan.buttonText}</span>
-                    <ArrowRight size={15} />
+                    <ArrowRight size={14} />
                   </a>
 
                 </div>
@@ -224,8 +219,8 @@ export default function Pricing() {
         </div>
 
         {/* Nota explicativa para o usuário */}
-        <div style={{ marginTop: '36px', textAlign: 'center' }}>
-          <p style={{ fontSize: '12.5px', color: 'var(--color-faint)' }}>
+        <div style={{ marginTop: 'clamp(12px, 1.8vh, 22px)', textAlign: 'center' }}>
+          <p style={{ fontSize: '11.5px', color: 'var(--color-faint)' }}>
             * Valores e recursos fictícios para visualização. Podem ser customizados posteriormente conforme sua tabela comercial.
           </p>
         </div>
