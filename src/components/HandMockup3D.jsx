@@ -1,15 +1,52 @@
 import React from 'react';
-import { CheckCircle2, AlertTriangle, Camera, ShieldCheck, Wifi, ArrowRight } from 'lucide-react';
+import {
+  Wifi,
+  ClipboardCheck,
+  ClipboardList,
+  Building2,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  Home,
+  Wrench,
+  User,
+  Bell
+} from 'lucide-react';
 import { useMouseTilt } from '../hooks/useMouseTilt';
 
 /**
- * HandMockup3D - Design Engineering Craft (Emil Kowalski / Apple Standards)
- * 
- * Smartphone 3D em perspectiva realista iPhone Pro Max com tilt interativo,
- * exibindo a interface nativa do aplicativo Viston em operação de campo.
+ * HandMockup3D - Pixel-Perfect Replica of Real Viston Mobile Home (`/home`)
+ *
+ * Replicando exatamente os tokens e componentes do design system do Viston:
+ * - Tema: T.bg (#0B0B0B), T.card (#171717), T.chip (#232323), T.accent (#F5C518)
+ * - MTopBar: Saudação "Olá, Inspetor", Avatar circular, Notificação com badge e Histórico
+ * - MCard (Dourado Primário): "Nova vistoria - Andar por andar, do topo ao subsolo"
+ * - MSectionHead: "Edifício Horizon Prime" com seletor de prédio
+ * - MStats: Contadores de Vistorias (18), Dias (12) e Inspetores (4)
+ * - CalendarHeatmap: Grade mensal com células graduadas na escala de calor real (--heat-0 a --heat-4)
+ * - BottomNav: Barra inferior de navegação nativa com abas Início, Chamados, Histórico e Perfil
  */
 export default function HandMockup3D({ imageSrc = null }) {
   const [containerRef, tilt] = useMouseTilt(7);
+
+  // Matriz de dados reais para o CalendarHeatmap de Setembro (4 semanas representativas)
+  const heatmapDays = [
+    // Dom, Seg, Ter, Qua, Qui, Sex, Sáb
+    [null, 1, 2, 3, 4, 5, 6],
+    [7, 8, 9, 10, 11, 12, 13],
+    [14, 15, 16, 17, 18, 19, 20],
+    [21, 22, 23, 24, 25, 26, 27],
+  ];
+
+  // Níveis de calor (0 a 4) idênticos ao app/lib/theme.js do Viston
+  const getHeatColor = (day) => {
+    if (!day) return 'transparent';
+    if (day === 8) return '#F5C518'; // Dia atual com 4+ vistorias (saturado)
+    if (day === 2 || day === 15 || day === 22) return '#A88A00'; // Nível 3
+    if (day === 4 || day === 11 || day === 18) return '#6B5A00'; // Nível 2
+    if (day === 3 || day === 9 || day === 24) return '#2E2A12'; // Nível 1
+    return '#232323'; // Nível 0 (vazio)
+  };
 
   return (
     <div
@@ -19,7 +56,7 @@ export default function HandMockup3D({ imageSrc = null }) {
         position: 'relative',
         width: '100%',
         maxWidth: '460px',
-        height: '600px',
+        height: '620px',
         margin: '0 auto',
         display: 'flex',
         alignItems: 'center',
@@ -40,53 +77,54 @@ export default function HandMockup3D({ imageSrc = null }) {
         {/* Smartphone em Rotação 3D com Tilt Interativo */}
         <div
           style={{
-            width: '290px',
-            height: '590px',
+            width: '292px',
+            height: '600px',
             borderRadius: '46px',
             background: 'linear-gradient(145deg, #2f3238 0%, #17181c 45%, #0d0e10 100%)',
-            padding: '11px',
+            padding: '10px',
             position: 'relative',
-            transform: `rotateY(${-14 + tilt.y}deg) rotateX(${12 + tilt.x}deg) rotateZ(3deg)`,
-            boxShadow: '-25px 35px 65px -10px rgba(0, 0, 0, 0.28), -5px 10px 20px rgba(0,0,0,0.15)',
+            transform: `rotateY(${-13 + tilt.y}deg) rotateX(${11 + tilt.x}deg) rotateZ(2.5deg)`,
+            boxShadow: '-25px 35px 65px -10px rgba(0, 0, 0, 0.45), -5px 10px 20px rgba(0,0,0,0.25)',
             border: '1.5px solid rgba(255, 255, 255, 0.18)',
             transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
             transformStyle: 'preserve-3d'
           }}
         >
-          {/* Tela Interna OLED */}
+          {/* Tela Interna OLED (Fundo Oficial do Viston: #0B0B0B) */}
           <div
             style={{
               width: '100%',
               height: '100%',
               borderRadius: '36px',
-              background: '#0F1216',
+              background: '#0B0B0B',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
               position: 'relative',
-              boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.8)',
-              color: '#FFFFFF'
+              boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.9)',
+              color: 'rgba(255, 255, 255, 0.96)',
+              fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
             }}
           >
-            {/* Dynamic Island */}
+            {/* Dynamic Island Apple iPhone */}
             <div
               style={{
                 position: 'absolute',
-                top: '9px',
+                top: '8px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                width: '88px',
-                height: '24px',
+                width: '84px',
+                height: '22px',
                 backgroundColor: '#000000',
                 borderRadius: '20px',
-                zIndex: 20,
+                zIndex: 30,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-                paddingRight: '9px'
+                paddingRight: '8px'
               }}
             >
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#1c2230' }} />
+              <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#1c2230' }} />
             </div>
 
             {/* Status Bar */}
@@ -95,18 +133,19 @@ export default function HandMockup3D({ imageSrc = null }) {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '11px 22px 6px',
-                fontSize: '11.5px',
+                padding: '9px 18px 4px',
+                fontSize: '11px',
                 fontWeight: 600,
                 color: 'rgba(255, 255, 255, 0.9)',
-                zIndex: 15
+                zIndex: 25
               }}
             >
               <span>09:42</span>
               <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                <span style={{ fontSize: '9px', fontWeight: 700, opacity: 0.8 }}>5G</span>
                 <Wifi size={11} />
-                <div style={{ width: '18px', height: '10px', border: '1px solid rgba(255,255,255,0.85)', borderRadius: '3px', padding: '1px' }}>
-                  <div style={{ width: '80%', height: '100%', background: '#FFFFFF', borderRadius: '1.5px' }} />
+                <div style={{ width: '17px', height: '9px', border: '1px solid rgba(255,255,255,0.85)', borderRadius: '3px', padding: '1px' }}>
+                  <div style={{ width: '85%', height: '100%', background: '#FFFFFF', borderRadius: '1px' }} />
                 </div>
               </div>
             </div>
@@ -114,157 +153,323 @@ export default function HandMockup3D({ imageSrc = null }) {
             {imageSrc ? (
               <img src={imageSrc} alt="Viston App Mobile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              /* Interface Realista do Viston Mobile */
+              /* Interface Realista do Viston Mobile - Tela Home Oficial */
               <div
                 style={{
                   flex: 1,
                   display: 'flex',
                   flexDirection: 'column',
-                  padding: '14px 16px 18px',
-                  background: 'linear-gradient(180deg, #111418 0%, #0c0e11 100%)',
-                  gap: '12px'
+                  overflowY: 'hidden',
+                  padding: '4px 12px 0'
                 }}
               >
-                {/* Header da Inspeção */}
-                <div style={{ marginTop: '8px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#F5C518', fontWeight: 700 }}>
-                      Vistoria em Andamento
-                    </span>
-                    <span style={{ fontSize: '10px', background: 'rgba(34, 197, 94, 0.15)', color: '#22C55E', padding: '2px 7px', borderRadius: '999px', fontWeight: 600 }}>
-                      Offline Ativo
-                    </span>
-                  </div>
-                  <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF', margin: 0 }}>
-                    Edifício Horizon Prime
-                  </h3>
-                  <p style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.55)', margin: 0 }}>
-                    Pavimento 14 • Barrilete & Bombas
-                  </p>
-                </div>
-
-                {/* Card de Progresso */}
-                <div
+                {/* 1. MTopBar Oficial */}
+                <header
                   style={{
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    borderRadius: '12px',
-                    padding: '10px 12px'
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    padding: '6px 0 10px'
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '6px' }}>
-                    <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>Progresso do Andar</span>
-                    <span style={{ color: '#F5C518', fontWeight: 600 }}>80% Concluído</span>
-                  </div>
-                  <div style={{ width: '100%', height: '5px', background: 'rgba(255, 255, 255, 0.1)', borderRadius: '999px', overflow: 'hidden' }}>
-                    <div style={{ width: '80%', height: '100%', background: '#F5C518', borderRadius: '999px' }} />
-                  </div>
-                </div>
-
-                {/* Lista de Itens do Checklist */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
-                  
-                  {/* Item 1 - Conforme */}
+                  {/* Avatar Circular */}
                   <div
                     style={{
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: '11px',
-                      padding: '9px 11px',
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      background: '#171717',
+                      border: '1.5px solid rgba(245, 197, 24, 0.4)',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'space-between'
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      fontWeight: 700,
+                      fontSize: '12px',
+                      color: '#F5C518'
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(34, 197, 94, 0.15)', color: '#22C55E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <CheckCircle2 size={13} />
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '12px', fontWeight: 600, color: '#FFFFFF' }}>Pressurizador de Incêndio</div>
-                        <div style={{ fontSize: '9px', color: 'rgba(255, 255, 255, 0.45)' }}>Pressão estática normal: 4.2 bar</div>
-                      </div>
-                    </div>
-                    <span style={{ fontSize: '9px', color: '#22C55E', background: 'rgba(34, 197, 94, 0.12)', padding: '2px 7px', borderRadius: '5px', fontWeight: 600 }}>
-                      Conforme
-                    </span>
+                    CE
                   </div>
 
-                  {/* Item 2 - Inconforme com Foto */}
-                  <div
-                    style={{
-                      background: 'rgba(245, 197, 24, 0.07)',
-                      border: '1px solid rgba(245, 197, 24, 0.3)',
-                      borderRadius: '11px',
-                      padding: '9px 11px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(239, 68, 68, 0.2)', color: '#EF4444', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <AlertTriangle size={13} />
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '12px', fontWeight: 600, color: '#FFFFFF' }}>Válvula de Retenção B2</div>
-                        <div style={{ fontSize: '9px', color: '#F5C518', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <Camera size={10} /> 1 Foto anexada • Avaria
-                        </div>
-                      </div>
-                    </div>
-                    <span style={{ fontSize: '9px', color: '#EF4444', background: 'rgba(239, 68, 68, 0.15)', padding: '2px 7px', borderRadius: '5px', fontWeight: 600 }}>
-                      Avaria
-                    </span>
+                  {/* Eyebrow & Título com Destaque Dourado */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ color: 'rgba(255, 255, 255, 0.52)', fontSize: '10px', margin: 0, lineHeight: 1.1 }}>
+                      terça-feira, 8 de setembro
+                    </p>
+                    <h1
+                      style={{
+                        margin: '1px 0 0',
+                        fontWeight: 600,
+                        fontSize: '16px',
+                        color: 'rgba(255, 255, 255, 0.96)',
+                        letterSpacing: '-0.01em',
+                        lineHeight: 1.15
+                      }}
+                    >
+                      Olá, <span style={{ color: '#F5C518' }}>Carlos</span>
+                    </h1>
                   </div>
 
-                  {/* Item 3 - Conforme */}
-                  <div
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: '11px',
-                      padding: '9px 11px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(34, 197, 94, 0.15)', color: '#22C55E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <CheckCircle2 size={13} />
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '12px', fontWeight: 600, color: '#FFFFFF' }}>Quadro de Comando</div>
-                        <div style={{ fontSize: '9px', color: 'rgba(255, 255, 255, 0.45)' }}>Sem superaquecimento</div>
-                      </div>
+                  {/* Ações Topo: Sino com notificação e Histórico */}
+                  <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
+                    <div
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        background: '#232323',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative'
+                      }}
+                    >
+                      <Bell size={14} color="rgba(255, 255, 255, 0.9)" />
+                      {/* Badge vermelho de 2 chamados */}
+                      <span
+                        style={{
+                          position: 'absolute',
+                          top: '2px',
+                          right: '2px',
+                          width: '6px',
+                          height: '6px',
+                          background: '#F87171',
+                          borderRadius: '50%'
+                        }}
+                      />
                     </div>
-                    <span style={{ fontSize: '9px', color: '#22C55E', background: 'rgba(34, 197, 94, 0.12)', padding: '2px 7px', borderRadius: '5px', fontWeight: 600 }}>
-                      Conforme
-                    </span>
+                    <div
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        background: '#232323',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      <ClipboardList size={14} color="rgba(255, 255, 255, 0.9)" />
+                    </div>
                   </div>
+                </header>
 
-                </div>
-
-                {/* Botão de Encerramento do Pavimento */}
+                {/* 2. MCard Dourado Primário: "Nova Vistoria" */}
                 <div
                   style={{
                     background: '#F5C518',
-                    color: '#000000',
                     borderRadius: '12px',
-                    padding: '11px',
-                    fontWeight: 600,
-                    fontSize: '12px',
+                    padding: '12px 14px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '7px',
-                    boxShadow: '0 3px 12px rgba(245, 197, 24, 0.35)'
+                    gap: '12px',
+                    boxShadow: '0 4px 16px rgba(245, 197, 24, 0.28)',
+                    marginBottom: '10px'
                   }}
                 >
-                  <span>Gerar Laudo do Andar (PDF)</span>
-                  <ArrowRight size={14} />
+                  <div
+                    style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '12px',
+                      background: 'rgba(0, 0, 0, 0.14)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}
+                  >
+                    <ClipboardCheck size={20} color="#000000" strokeWidth={2.4} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ margin: 0, fontWeight: 700, fontSize: '14px', color: '#000000', lineHeight: 1.15 }}>
+                      Nova vistoria
+                    </p>
+                    <p style={{ margin: '2px 0 0', fontSize: '11px', color: 'rgba(0, 0, 0, 0.68)', lineHeight: 1.2 }}>
+                      Andar por andar, do topo ao subsolo
+                    </p>
+                  </div>
                 </div>
+
+                {/* 3. MSectionHead: Prédio Ativo & Seletor */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '8px',
+                    marginBottom: '8px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <Building2 size={13} color="#F5C518" />
+                    <span style={{ fontWeight: 600, fontSize: '12px', color: 'rgba(255, 255, 255, 0.96)' }}>
+                      Edifício Horizon Prime
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      background: '#232323',
+                      color: 'rgba(255, 255, 255, 0.68)',
+                      borderRadius: '12px',
+                      padding: '4px 8px',
+                      fontSize: '10px',
+                      fontWeight: 500,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    <span>Trocar</span>
+                    <ChevronDown size={11} />
+                  </div>
+                </div>
+
+                {/* 4. MCard: Métricas e Calendário Heatmap Oficial */}
+                <div
+                  style={{
+                    background: '#171717',
+                    borderRadius: '12px',
+                    padding: '10px 12px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px',
+                    marginBottom: '10px'
+                  }}
+                >
+                  {/* MStats Oficial (Trio de Números) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+                    {[
+                      { val: '18', label: 'Vistorias' },
+                      { val: '12', label: 'Dias' },
+                      { val: '4', label: 'Inspetores' }
+                    ].map((item, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          background: '#232323',
+                          borderRadius: '10px',
+                          padding: '7px 4px',
+                          textAlign: 'center'
+                        }}
+                      >
+                        <p style={{ margin: 0, fontWeight: 700, fontSize: '14px', color: '#FFFFFF', lineHeight: 1.1 }}>
+                          {item.val}
+                        </p>
+                        <p style={{ margin: '2px 0 0', color: 'rgba(255, 255, 255, 0.68)', fontSize: '9.5px' }}>
+                          {item.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Cabeçalho do Mês */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <ChevronLeft size={13} color="rgba(255, 255, 255, 0.52)" />
+                    <span style={{ fontWeight: 600, fontSize: '11px', color: '#FFFFFF', textTransform: 'capitalize' }}>
+                      Setembro 2026
+                    </span>
+                    <ChevronRight size={13} color="rgba(255, 255, 255, 0.52)" />
+                  </div>
+
+                  {/* CalendarHeatmap Grid */}
+                  <div>
+                    {/* Linha dos Dias da Semana */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '3px', marginBottom: '4px' }}>
+                      {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((d, i) => (
+                        <div key={i} style={{ textAlign: 'center', fontSize: '9px', color: 'rgba(255, 255, 255, 0.52)' }}>
+                          {d}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Matriz 4 Semanas com Cores de Calor Reais */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      {heatmapDays.map((week, wi) => (
+                        <div key={wi} style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '3px' }}>
+                          {week.map((day, di) => {
+                            if (!day) return <div key={di} style={{ aspectRatio: '1' }} />;
+                            const bg = getHeatColor(day);
+                            const isToday = day === 8;
+                            return (
+                              <div
+                                key={di}
+                                style={{
+                                  aspectRatio: '1',
+                                  borderRadius: '4px',
+                                  background: bg,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '9.5px',
+                                  fontWeight: isToday ? 700 : 500,
+                                  color: isToday ? '#000000' : 'rgba(255, 255, 255, 0.75)',
+                                  border: isToday ? '1px solid #FFFFFF' : 'none'
+                                }}
+                              >
+                                {day}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 5. BottomNav Oficial do Viston */}
+                <nav
+                  aria-label="Navegação principal"
+                  style={{
+                    marginTop: 'auto',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: '#0B0B0B',
+                    padding: '7px 4px 10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around'
+                  }}
+                >
+                  {/* Aba 1: Início (Ativa - Dourada) */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', color: '#F5C518' }}>
+                    <Home size={17} strokeWidth={2.4} />
+                    <span style={{ fontSize: '9.5px', fontWeight: 600 }}>Início</span>
+                  </div>
+
+                  {/* Aba 2: Chamados (com badge de 3) */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', color: 'rgba(255, 255, 255, 0.52)', position: 'relative' }}>
+                    <Wrench size={17} strokeWidth={1.8} />
+                    <span style={{ fontSize: '9.5px', fontWeight: 500 }}>Chamados</span>
+                    <span
+                      style={{
+                        position: 'absolute',
+                        top: '-2px',
+                        right: '8px',
+                        background: '#F5C518',
+                        color: '#000000',
+                        fontSize: '8px',
+                        fontWeight: 700,
+                        padding: '1px 3px',
+                        borderRadius: '6px'
+                      }}
+                    >
+                      3
+                    </span>
+                  </div>
+
+                  {/* Aba 3: Histórico */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', color: 'rgba(255, 255, 255, 0.52)' }}>
+                    <ClipboardList size={17} strokeWidth={1.8} />
+                    <span style={{ fontSize: '9.5px', fontWeight: 500 }}>Histórico</span>
+                  </div>
+
+                  {/* Aba 4: Perfil */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', color: 'rgba(255, 255, 255, 0.52)' }}>
+                    <User size={17} strokeWidth={1.8} />
+                    <span style={{ fontSize: '9.5px', fontWeight: 500 }}>Perfil</span>
+                  </div>
+                </nav>
 
               </div>
             )}

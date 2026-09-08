@@ -1,6 +1,0 @@
-# Coloque aqui as imagens das telas do seu aplicativo mobile
-# Exemplos:
-# - hero_central.png
-# - chamados_morador.png
-# - vistoria_tecnica.png
-
