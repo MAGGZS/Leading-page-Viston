@@ -7,7 +7,7 @@ export default function CTA() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [condos, setCondos] = useState('1-5');
-  const [sectionRef, isInView] = useInView({ threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  const [cardRef, cardInView] = useInView({ threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,27 +16,29 @@ export default function CTA() {
 
   return (
     <section
-      ref={sectionRef}
       id="demonstracao"
-      style={{ padding: '80px 0 100px', background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}
+      className="section-proportional"
+      style={{ background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}
     >
       <div className="container">
         
         {/* Bloco de Apresentação Direto (Sem brilhos artificiais) */}
         <div
-          className={`reveal-item ${isInView ? 'is-visible' : ''}`}
+          ref={cardRef}
+          className={`reveal-aperture cta-ambient-card ${cardInView ? 'is-visible' : ''}`}
           style={{
             maxWidth: '820px',
             margin: '0 auto',
             background: '#101317',
             borderRadius: '16px',
-            padding: '52px 40px',
+            padding: 'clamp(32px, 5vh, 52px) clamp(20px, 4vw, 40px)',
             color: '#FFFFFF',
             textAlign: 'center',
             position: 'relative'
           }}
         >
           <span
+            className="reveal-badge-text"
             style={{
               display: 'inline-block',
               fontSize: '11.5px',
@@ -50,11 +52,14 @@ export default function CTA() {
             Apresentação Prática de 15 Minutos
           </span>
 
-          <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', color: '#FFFFFF', fontWeight: 600, marginBottom: '14px', lineHeight: 1.2 }}>
-            Pronto para profissionalizar a vistoria do seu patrimônio?
-          </h2>
+          <div className="text-mask-wrapper" style={{ marginBottom: '14px' }}>
+            <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', color: '#FFFFFF', fontWeight: 600, margin: 0, lineHeight: 1.2 }}>
+              <span className="reveal-text-line line-delay-1">Pronto para profissionalizar a </span>{' '}
+              <span className="reveal-text-line line-delay-2">vistoria do seu patrimônio?</span>
+            </h2>
+          </div>
 
-          <p style={{ fontSize: '15px', color: 'rgba(255, 255, 255, 0.65)', maxWidth: '580px', margin: '0 auto 32px', lineHeight: 1.6 }}>
+          <p className="reveal-sub-text" style={{ fontSize: '15px', color: 'rgba(255, 255, 255, 0.65)', maxWidth: '580px', margin: '0 auto 32px', lineHeight: 1.6 }}>
             Veja na prática como estruturar vistorias no smartphone e centralizar chamados em Kanban 
             para o seu condomínio ou administradora.
           </p>

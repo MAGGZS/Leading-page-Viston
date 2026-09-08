@@ -1,12 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 
 /**
- * useMouseTilt - Adiciona uma resposta física e tridimensional sutil aos movimentos do cursor
- * sobre o elemento (padrão de interação Apple / Linear para mockups e cartões).
+ * useMouseTilt - Física de inclinação 3D com amortecimento elástico (lerp)
+ * Seguindo as diretrizes de movimento do Emil Kowalski:
+ * - Sem paradas bruscas: amortecimento contínuo por interpolação linear
+ * - Respeito a prefers-reduced-motion
+ * - Cancelamento seguro de requestAnimationFrame
  */
-export function useMouseTilt(maxTilt = 5) {
+export function useMouseTilt(maxTilt = 6, lerpFactor = 0.08) {
   const ref = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const targetTilt = useRef({ x: 0, y: 0 });
+  const currentTilt = useRef({ x: 0, y: 0 });
+  const isHovered = useRef(false);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -17,6 +23,25 @@ export function useMouseTilt(maxTilt = 5) {
 
     let rafId = null;
 
+    const animate = () => {
+      const dx = targetTilt.current.x - currentTilt.current.x;
+      const dy = targetTilt.current.y - currentTilt.current.y;
+
+      if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01 || isHovered.current) {
+        currentTilt.current.x += dx * lerpFactor;
+        currentTilt.current.y += dy * lerpFactor;
+        setTilt({
+          x: Math.round(currentTilt.current.x * 100) / 100,
+          y: Math.round(currentTilt.current.y * 100) / 100
+        });
+        rafId = requestAnimationFrame(animate);
+      } else {
+        currentTilt.current.x = targetTilt.current.x;
+        currentTilt.current.y = targetTilt.current.y;
+        setTilt({ ...targetTilt.current });
+      }
+    };
+
     const handleMouseMove = (e) => {
       const rect = element.getBoundingClientRect();
       const clientX = e.clientX - rect.left;
@@ -25,18 +50,23 @@ export function useMouseTilt(maxTilt = 5) {
       const xNorm = (clientX / rect.width) - 0.5; // -0.5 a 0.5
       const yNorm = (clientY / rect.height) - 0.5;
 
-      const targetX = -yNorm * maxTilt;
-      const targetY = xNorm * maxTilt;
+      targetTilt.current = {
+        x: -yNorm * maxTilt,
+        y: xNorm * maxTilt
+      };
 
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        setTilt({ x: targetX, y: targetY });
-      });
+      if (!isHovered.current) {
+        isHovered.current = true;
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(animate);
+      }
     };
 
     const handleMouseLeave = () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      setTilt({ x: 0, y: 0 });
+      isHovered.current = false;
+      targetTilt.current = { x: 0, y: 0 };
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(animate);
     };
 
     element.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -47,7 +77,8 @@ export function useMouseTilt(maxTilt = 5) {
       element.removeEventListener('mousemove', handleMouseMove);
       element.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [maxTilt]);
+  }, [maxTilt, lerpFactor]);
 
   return [ref, tilt];
 }
+

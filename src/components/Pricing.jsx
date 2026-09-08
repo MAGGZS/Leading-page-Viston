@@ -3,7 +3,8 @@ import { Check, ArrowRight } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 
 export default function Pricing() {
-  const [sectionRef, isInView] = useInView({ threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  const [headerRef, headerInView] = useInView({ threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+  const [cardsRef, cardsInView] = useInView({ threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
   const plans = [
     {
@@ -66,18 +67,20 @@ export default function Pricing() {
 
   return (
     <section
-      ref={sectionRef}
       id="planos"
-      style={{ padding: '96px 0', background: 'var(--color-page)', borderTop: '1px solid var(--color-line)' }}
+      className="section-proportional"
+      style={{ background: 'var(--color-page)', borderTop: '1px solid var(--color-line)' }}
     >
       <div className="container">
         
         {/* Cabeçalho */}
         <div
-          className={`reveal-item ${isInView ? 'is-visible' : ''}`}
-          style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 56px' }}
+          ref={headerRef}
+          className={`${headerInView ? 'is-visible' : ''}`}
+          style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto clamp(32px, 5vh, 56px)' }}
         >
           <span
+            className="reveal-badge-text"
             style={{
               display: 'inline-block',
               fontSize: '12px',
@@ -91,127 +94,133 @@ export default function Pricing() {
             Planos & Licenças
           </span>
 
-          <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', color: 'var(--color-ink)', fontWeight: 600, marginBottom: '14px' }}>
-            A estrutura ideal para o tamanho da sua operação
-          </h2>
+          <div className="text-mask-wrapper" style={{ marginBottom: '14px' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', color: 'var(--color-ink)', fontWeight: 600, margin: 0 }}>
+              <span className="reveal-text-line line-delay-1">Previsibilidade total e </span>{' '}
+              <span className="reveal-text-line line-delay-2">sem surpresas no orçamento</span>
+            </h2>
+          </div>
 
-          <p style={{ fontSize: '15.5px', color: 'var(--color-mute)', lineHeight: 1.6 }}>
-            Escolha o plano que melhor atende suas rotinas de vistoria e gestão predial. 
-            Sem fidelidade ou surpresas.
+          <p className="reveal-sub-text" style={{ fontSize: '15.5px', color: 'var(--color-mute)', lineHeight: 1.6 }}>
+            Planos dimensionados para o tamanho da sua operação predial, com ativação imediata:
           </p>
         </div>
 
-        {/* Grade com os 3 Cards Fictícios (Seguindo R.card = 12px e Superfície Chapada) */}
+        {/* 3 Cartões de Preço em Leque com Destaque Central */}
         <div
+          ref={cardsRef}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
-            gap: '24px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 'clamp(18px, 2.5vw, 24px)',
             alignItems: 'stretch'
           }}
         >
-          {plans.map((plan, idx) => (
-            <div
-              key={idx}
-              className={`reveal-item delay-${idx + 1} ${isInView ? 'is-visible' : ''}`}
-              style={{ display: 'flex' }}
-            >
+          {plans.map((plan, idx) => {
+            const fanClass = idx === 0 ? 'reveal-fan-left' : idx === 1 ? 'reveal-fan-center' : 'reveal-fan-right';
+            return (
               <div
-                className="card-viston"
-                style={{
-                  width: '100%',
-                  padding: '36px 30px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  position: 'relative',
-                  background: 'var(--color-card)',
-                  boxShadow: plan.popular 
-                    ? '0 0 0 2px var(--color-accent)' 
-                    : 'var(--card-ring)',
-                }}
+                key={idx}
+                className={`${fanClass} delay-${idx + 1} ${cardsInView ? 'is-visible' : ''}`}
+                style={{ display: 'flex' }}
               >
-                {/* Badge Minimalista */}
-                {plan.badge && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '-12px',
-                      left: '28px',
-                      background: 'var(--color-accent)',
-                      color: 'var(--color-onaccent)',
-                      padding: '3px 12px',
-                      borderRadius: '999px',
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      letterSpacing: '0.02em'
-                    }}
-                  >
-                    {plan.badge}
-                  </div>
-                )}
-
-                <div>
-                  {/* Nome do Plano */}
-                  <h3 style={{ fontSize: '20px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '6px' }}>
-                    {plan.name}
-                  </h3>
-
-                  <p style={{ fontSize: '13px', color: 'var(--color-mute)', lineHeight: 1.5, minHeight: '38px', marginBottom: '24px' }}>
-                    {plan.tagline}
-                  </p>
-
-                  {/* Preço */}
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '28px', paddingBottom: '24px', borderBottom: '1px solid var(--color-line)' }}>
-                    <span style={{ fontSize: '34px', fontWeight: 600, color: 'var(--color-ink)', letterSpacing: '-0.03em' }}>
-                      {plan.price}
-                    </span>
-                    {plan.period && (
-                      <span style={{ fontSize: '14px', color: 'var(--color-mute)', fontWeight: 400 }}>
-                        {plan.period}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Lista de Recursos */}
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '36px' }}>
-                    {plan.features.map((feature, fIdx) => (
-                      <li key={fIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: 'var(--color-ink)', lineHeight: 1.45 }}>
-                        <div
-                          style={{
-                            width: '18px',
-                            height: '18px',
-                            borderRadius: '50%',
-                            background: 'var(--color-chip)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0,
-                            marginTop: '2px',
-                            color: 'var(--color-ink)'
-                          }}
-                        >
-                          <Check size={12} strokeWidth={2.5} />
-                        </div>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Botão de Ação */}
-                <a
-                  href={plan.href}
-                  className={plan.buttonClass}
-                  style={{ width: '100%', justifyContent: 'center' }}
+                <div
+                  className={`card-viston ${plan.popular ? 'card-featured-glow' : ''}`}
+                  style={{
+                    width: '100%',
+                    padding: 'clamp(28px, 3.2vw, 36px) clamp(20px, 2.4vw, 30px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    position: 'relative',
+                    background: 'var(--color-card)',
+                    boxShadow: plan.popular 
+                      ? '0 0 0 2px var(--color-accent)' 
+                      : 'var(--card-ring)',
+                  }}
                 >
-                  <span>{plan.buttonText}</span>
-                  <ArrowRight size={15} />
-                </a>
+                  {/* Badge Minimalista */}
+                  {plan.badge && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '-12px',
+                        left: '28px',
+                        background: 'var(--color-accent)',
+                        color: 'var(--color-onaccent)',
+                        padding: '3px 12px',
+                        borderRadius: '999px',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        letterSpacing: '0.02em'
+                      }}
+                    >
+                      {plan.badge}
+                    </div>
+                  )}
 
+                  <div>
+                    {/* Nome do Plano */}
+                    <h3 style={{ fontSize: '20px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '6px' }}>
+                      {plan.name}
+                    </h3>
+
+                    <p style={{ fontSize: '13px', color: 'var(--color-mute)', lineHeight: 1.5, minHeight: '38px', marginBottom: '24px' }}>
+                      {plan.tagline}
+                    </p>
+
+                    {/* Preço */}
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '28px', paddingBottom: '24px', borderBottom: '1px solid var(--color-line)' }}>
+                      <span style={{ fontSize: '34px', fontWeight: 600, color: 'var(--color-ink)', letterSpacing: '-0.03em' }}>
+                        {plan.price}
+                      </span>
+                      {plan.period && (
+                        <span style={{ fontSize: '14px', color: 'var(--color-mute)', fontWeight: 400 }}>
+                          {plan.period}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Lista de Recursos */}
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '36px' }}>
+                      {plan.features.map((feature, fIdx) => (
+                        <li key={fIdx} className="reveal-item-stagger" style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: 'var(--color-ink)', lineHeight: 1.45 }}>
+                          <div
+                            style={{
+                              width: '18px',
+                              height: '18px',
+                              borderRadius: '50%',
+                              background: 'var(--color-chip)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0,
+                              marginTop: '2px',
+                              color: 'var(--color-ink)'
+                            }}
+                          >
+                            <Check size={12} strokeWidth={2.5} />
+                          </div>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Botão de Ação */}
+                  <a
+                    href={plan.href}
+                    className={plan.buttonClass}
+                    style={{ width: '100%', justifyContent: 'center' }}
+                  >
+                    <span>{plan.buttonText}</span>
+                    <ArrowRight size={15} />
+                  </a>
+
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Nota explicativa para o usuário */}

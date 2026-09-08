@@ -4,28 +4,11 @@ import HandMockup3D from './HandMockup3D';
 
 export default function Hero() {
   return (
-    <section
-      className="hero-scroll-section"
-      style={{
-        paddingTop: '130px',
-        paddingBottom: '70px',
-        background: 'var(--color-page)',
-        position: 'relative',
-        overflow: 'hidden'
-      }}
-    >
+    <section className="hero-viewport-fit">
       <div className="container-hero">
         
         {/* Grid do Hero: Texto Direto na Esquerda e Mão 3D na Direita */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-            gap: '32px',
-            alignItems: 'center',
-            marginBottom: '56px'
-          }}
-        >
+        <div className="hero-grid-fit">
           {/* Coluna de Texto */}
           <div style={{ maxWidth: '620px' }}>
             
@@ -39,10 +22,11 @@ export default function Hero() {
                 background: 'var(--color-chip)',
                 padding: '5px 14px',
                 borderRadius: '999px',
-                marginBottom: '22px'
+                marginBottom: 'clamp(8px, 1.6vh, 18px)'
               }}
             >
               <span
+                className="sonar-beacon"
                 style={{
                   width: '7px',
                   height: '7px',
@@ -59,14 +43,14 @@ export default function Hero() {
             </div>
 
             {/* Headline Principal com Máscara de Revelação (Apple / Linear style) */}
-            <div className="text-mask-wrapper" style={{ marginBottom: '20px' }}>
+            <div className="text-mask-wrapper" style={{ marginBottom: 'clamp(10px, 1.6vh, 18px)' }}>
               <h1
                 className="hero-headline-enter text-mask-child"
                 style={{
-                  fontSize: 'clamp(34px, 4.8vw, 56px)',
+                  fontSize: 'clamp(28px, 3.6vw, 52px)',
                   fontWeight: 600,
                   color: 'var(--color-ink)',
-                  lineHeight: 1.15,
+                  lineHeight: 1.14,
                   letterSpacing: '-0.03em',
                   margin: 0
                 }}
@@ -79,10 +63,11 @@ export default function Hero() {
             <p
               className="hero-sub-enter"
               style={{
-                fontSize: 'clamp(15px, 1.6vw, 17.5px)',
+                fontSize: 'clamp(14px, 1.15vw, 16.5px)',
                 color: 'var(--color-mute)',
-                lineHeight: 1.6,
-                marginBottom: '32px'
+                lineHeight: 1.55,
+                maxWidth: '550px',
+                marginBottom: 'clamp(16px, 2.2vh, 28px)'
               }}
             >
               O Viston substitui pranchetas manuais e mensagens perdidas no WhatsApp 
@@ -98,14 +83,14 @@ export default function Hero() {
                 flexWrap: 'wrap',
                 alignItems: 'center',
                 gap: '12px',
-                marginBottom: '36px'
+                marginBottom: 'clamp(16px, 2.2vh, 28px)'
               }}
             >
-              <a href="#demonstracao" className="btn-gold" style={{ padding: '12px 26px', fontSize: '14.5px' }}>
+              <a href="#demonstracao" className="btn-gold" style={{ padding: '11px 24px', fontSize: '14px' }}>
                 <span>Agendar Demonstração</span>
                 <ArrowRight size={16} />
               </a>
-              <a href="#resolucao" className="btn-ghost" style={{ padding: '12px 22px', fontSize: '14.5px' }}>
+              <a href="#resolucao" className="btn-ghost" style={{ padding: '11px 20px', fontSize: '14px' }}>
                 <span>Ver Como Resolve</span>
               </a>
             </div>
@@ -116,8 +101,8 @@ export default function Hero() {
               style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '20px',
-                fontSize: '13px',
+                gap: 'clamp(12px, 1.5vw, 20px)',
+                fontSize: 'clamp(12px, 0.9vw, 13px)',
                 fontWeight: 500,
                 color: 'var(--color-mute)'
               }}
@@ -139,12 +124,14 @@ export default function Hero() {
           </div>
 
           {/* Coluna Direita: Mockup 3D com Mão Realista em Perspectiva */}
-          <div className="hero-mockup-enter hand-mockup-scroll" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <HandMockup3D
-              title="Vistoria Técnica de Campo"
-              subtitle="Itens de inspeção de bombas, elevadores e áreas comuns"
-              badge="App Mobile em Campo"
-            />
+          <div className="hero-mockup-enter hero-mockup-frame">
+            <div className="hero-mockup-scaler">
+              <HandMockup3D
+                title="Vistoria Técnica de Campo"
+                subtitle="Itens de inspeção de bombas, elevadores e áreas comuns"
+                badge="App Mobile em Campo"
+              />
+            </div>
           </div>
         </div>
 
@@ -153,18 +140,18 @@ export default function Hero() {
           className="hero-social-enter"
           style={{
             borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-            paddingTop: '36px',
+            paddingTop: 'clamp(12px, 1.8vh, 22px)',
             textAlign: 'center'
           }}
         >
           <p
             style={{
-              fontSize: '11.5px',
+              fontSize: 'clamp(10.5px, 0.8vw, 11.5px)',
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
               color: '#ADB5BD',
-              marginBottom: '22px'
+              marginBottom: 'clamp(8px, 1.2vh, 16px)'
             }}
           >
             Utilizado e homologado por administradoras, condomínios e engenharias
@@ -176,23 +163,23 @@ export default function Hero() {
               flexWrap: 'wrap',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '42px',
+              gap: 'clamp(16px, 3.2vw, 42px)',
               opacity: 0.55
             }}
           >
-            <span style={{ fontSize: '16px', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
+            <span style={{ fontSize: 'clamp(12.5px, 1.1vw, 15px)', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
               HABITAT GESTÃO
             </span>
-            <span style={{ fontSize: '16px', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
+            <span style={{ fontSize: 'clamp(12.5px, 1.1vw, 15px)', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
               VÉRTICE ENGENHARIA
             </span>
-            <span style={{ fontSize: '16px', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
+            <span style={{ fontSize: 'clamp(12.5px, 1.1vw, 15px)', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
               NEOCONDO
             </span>
-            <span style={{ fontSize: '16px', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
+            <span style={{ fontSize: 'clamp(12.5px, 1.1vw, 15px)', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
               ALIANÇA PREDIAL
             </span>
-            <span style={{ fontSize: '16px', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
+            <span style={{ fontSize: 'clamp(12.5px, 1.1vw, 15px)', fontWeight: 800, letterSpacing: '-0.02em', color: '#0B0B0B' }}>
               PRISMA VISTORIAS
             </span>
           </div>

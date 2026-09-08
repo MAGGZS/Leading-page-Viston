@@ -3,7 +3,8 @@ import { X, Check } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 
 export default function ProblemSolution() {
-  const [sectionRef, isInView] = useInView({ threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  const [headerRef, headerInView] = useInView({ threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+  const [cardsRef, cardsInView] = useInView({ threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
   const comparisons = [
     {
@@ -34,18 +35,20 @@ export default function ProblemSolution() {
 
   return (
     <section
-      ref={sectionRef}
       id="resolucao"
-      style={{ padding: '96px 0', background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}
+      className="section-proportional"
+      style={{ background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}
     >
       <div className="container">
         
         {/* Cabeçalho */}
         <div
-          className={`reveal-item ${isInView ? 'is-visible' : ''}`}
-          style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 60px' }}
+          ref={headerRef}
+          className={`${headerInView ? 'is-visible' : ''}`}
+          style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto clamp(32px, 5vh, 56px)' }}
         >
           <span
+            className="reveal-badge-text"
             style={{
               display: 'inline-block',
               fontSize: '12px',
@@ -59,27 +62,31 @@ export default function ProblemSolution() {
             A Resolução Concreta
           </span>
 
-          <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', color: 'var(--color-ink)', fontWeight: 600, marginBottom: '14px' }}>
-            Do improviso manual à governança técnica predial
-          </h2>
+          <div className="text-mask-wrapper" style={{ marginBottom: '14px' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', color: 'var(--color-ink)', fontWeight: 600, margin: 0 }}>
+              <span className="reveal-text-line line-delay-1">Do improviso manual </span>{' '}
+              <span className="reveal-text-line line-delay-2">à governança técnica predial</span>
+            </h2>
+          </div>
 
-          <p style={{ fontSize: '15.5px', color: 'var(--color-mute)', lineHeight: 1.6 }}>
+          <p className="reveal-sub-text" style={{ fontSize: '15.5px', color: 'var(--color-mute)', lineHeight: 1.6 }}>
             O Viston elimina as quatro maiores fontes de atrito na rotina de condomínios e administradoras:
           </p>
         </div>
 
         {/* Grade de Comparação 2x2 Clean */}
         <div
+          ref={cardsRef}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '24px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
+            gap: 'clamp(16px, 2.5vw, 24px)'
           }}
         >
           {comparisons.map((item, idx) => (
             <div
               key={idx}
-              className={`reveal-item delay-${idx + 1} ${isInView ? 'is-visible' : ''}`}
+              className={`${idx % 2 === 0 ? 'reveal-dock-left' : 'reveal-dock-right'} delay-${idx + 1} ${cardsInView ? 'is-visible' : ''}`}
               style={{ height: '100%' }}
             >
               <div
@@ -126,6 +133,7 @@ export default function ProblemSolution() {
                 {/* A Resolução Viston */}
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                   <div
+                    className="icon-spring-pop"
                     style={{
                       width: '24px',
                       height: '24px',

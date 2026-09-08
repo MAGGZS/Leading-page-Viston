@@ -24,8 +24,8 @@ export default function HandMockup3D({
       style={{
         position: 'relative',
         width: '100%',
-        maxWidth: '480px',
-        height: '560px',
+        maxWidth: 'min(100%, 480px)',
+        height: 'clamp(460px, 54vh, 560px)',
         margin: '0 auto',
         display: 'flex',
         alignItems: 'center',

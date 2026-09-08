@@ -21,7 +21,7 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 100,
-          transition: 'background-color 0.25s ease, border-color 0.25s ease',
+          transition: 'background-color 200ms var(--ease-out), border-color 200ms var(--ease-out)',
           background: scrolled ? 'rgba(245, 246, 248, 0.85)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
@@ -49,16 +49,16 @@ export default function Navbar() {
           }}
           className="desktop-nav"
         >
-          <a href="#resolucao" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 0.15s ease' }}>
+          <a href="#resolucao" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 160ms var(--ease-out)' }}>
             O Que Resolve
           </a>
-          <a href="#sistema" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 0.15s ease' }}>
+          <a href="#sistema" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 160ms var(--ease-out)' }}>
             Campo & Gestão
           </a>
-          <a href="#planos" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 0.15s ease' }}>
+          <a href="#planos" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 160ms var(--ease-out)' }}>
             Planos
           </a>
-          <a href="#demonstracao" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 0.15s ease' }}>
+          <a href="#demonstracao" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 160ms var(--ease-out)' }}>
             Contato
           </a>
         </nav>
