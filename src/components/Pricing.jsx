@@ -4,6 +4,7 @@ import { useInView } from '../hooks/useInView';
 
 export default function Pricing() {
   const [headerRef, headerInView] = useInView({ threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+  const [headerRef, headerInView] = useInView({ threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
   const [cardsRef, cardsInView] = useInView({ threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
   const plans = [
@@ -38,6 +39,7 @@ export default function Pricing() {
         "Triagem com papel de Moderador e Responsável",
         "Usuários ilimitados por edifício",
         "Chaves de compartilhamento de prédio",
+        "Chaves de compartilhamento de condomínio",
         "Relatórios analíticos e controle de SLA",
         "Suporte técnico prioritário"
       ],
@@ -69,26 +71,31 @@ export default function Pricing() {
     <section
       id="planos"
       className="section-viewport-fit"
+      className="section-stage"
       style={{ background: 'var(--color-page)', borderTop: '1px solid var(--color-line)' }}
     >
       <div className="container">
         
         {/* Cabeçalho */}
+        {/* Cabeçalho Editorial Espaçoso */}
         <div
           ref={headerRef}
           className={`${headerInView ? 'is-visible' : ''}`}
           style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto clamp(14px, 2.5vh, 32px)' }}
+          style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto clamp(36px, 5vh, 56px)' }}
         >
           <span
             className="reveal-badge-text"
             style={{
               display: 'inline-block',
               fontSize: 'clamp(11px, 0.8vw, 12px)',
+              fontSize: '11.5px',
               fontWeight: 600,
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
               color: 'var(--color-mute)',
               marginBottom: 'clamp(6px, 1vh, 10px)'
+              marginBottom: '12px'
             }}
           >
             Planos & Licenças
@@ -96,6 +103,8 @@ export default function Pricing() {
 
           <div className="text-mask-wrapper" style={{ marginBottom: 'clamp(6px, 1vh, 12px)' }}>
             <h2 style={{ fontSize: 'clamp(24px, 2.8vw, 36px)', color: 'var(--color-ink)', fontWeight: 600, margin: 0, lineHeight: 1.15 }}>
+          <div className="text-mask-wrapper" style={{ marginBottom: '14px' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', color: 'var(--color-ink)', fontWeight: 600, margin: 0, lineHeight: 1.15 }}>
               <span className="reveal-text-line line-delay-1">Previsibilidade total e </span>{' '}
               <span className="reveal-text-line line-delay-2">sem surpresas no orçamento</span>
             </h2>
@@ -103,13 +112,17 @@ export default function Pricing() {
 
           <p className="reveal-sub-text" style={{ fontSize: 'clamp(13px, 1vw, 15px)', color: 'var(--color-mute)', lineHeight: 1.5, margin: 0 }}>
             Planos dimensionados para o tamanho da sua operação predial, com ativação imediata:
+          <p className="reveal-sub-text" style={{ fontSize: 'clamp(14px, 1.1vw, 16px)', color: 'var(--color-mute)', lineHeight: 1.55, margin: 0 }}>
+            Planos dimensionados para a escala da sua operação predial, com ativação imediata:
           </p>
         </div>
 
         {/* 3 Cartões de Preço em Leque Proporcionais */}
+        {/* 3 Cartões de Preço Nobres em Grade */}
         <div
           ref={cardsRef}
           className="pricing-grid-fit"
+          className="pricing-grid"
         >
           {plans.map((plan, idx) => {
             const fanClass = idx === 0 ? 'reveal-fan-left' : idx === 1 ? 'reveal-fan-center' : 'reveal-fan-right';
@@ -124,6 +137,7 @@ export default function Pricing() {
                   style={{
                     width: '100%',
                     padding: 'clamp(20px, 2.4vh, 30px) clamp(16px, 1.6vw, 24px)',
+                    padding: 'clamp(28px, 3.5vh, 36px) clamp(22px, 2vw, 28px)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -141,13 +155,18 @@ export default function Pricing() {
                         position: 'absolute',
                         top: '-11px',
                         left: '24px',
+                        top: '-12px',
+                        left: '26px',
                         background: 'var(--color-accent)',
                         color: 'var(--color-onaccent)',
                         padding: '3px 12px',
+                        padding: '4px 14px',
                         borderRadius: '999px',
                         fontSize: '11px',
                         fontWeight: 600,
                         letterSpacing: '0.02em'
+                        letterSpacing: '0.04em',
+                        boxShadow: '0 2px 8px rgba(245, 197, 24, 0.35)'
                       }}
                     >
                       {plan.badge}
@@ -157,20 +176,25 @@ export default function Pricing() {
                   <div>
                     {/* Nome do Plano */}
                     <h3 style={{ fontSize: 'clamp(17px, 1.2vw, 19px)', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '4px' }}>
+                    <h3 style={{ fontSize: '19px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '6px' }}>
                       {plan.name}
                     </h3>
 
                     <p style={{ fontSize: 'clamp(11.5px, 0.8vw, 12.5px)', color: 'var(--color-mute)', lineHeight: 1.45, minHeight: 'clamp(28px, 3vh, 36px)', marginBottom: 'clamp(12px, 1.6vh, 18px)' }}>
+                    <p style={{ fontSize: '13px', color: 'var(--color-mute)', lineHeight: 1.5, minHeight: '40px', marginBottom: '20px' }}>
                       {plan.tagline}
                     </p>
 
                     {/* Preço */}
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: 'clamp(14px, 1.8vh, 20px)', paddingBottom: 'clamp(12px, 1.6vh, 18px)', borderBottom: '1px solid var(--color-line)' }}>
                       <span style={{ fontSize: 'clamp(28px, 2.2vw, 34px)', fontWeight: 600, color: 'var(--color-ink)', letterSpacing: '-0.03em' }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '22px', paddingBottom: '20px', borderBottom: '1px solid var(--color-line)' }}>
+                      <span style={{ fontSize: 'clamp(32px, 2.6vw, 38px)', fontWeight: 600, color: 'var(--color-ink)', letterSpacing: '-0.035em' }}>
                         {plan.price}
                       </span>
                       {plan.period && (
                         <span style={{ fontSize: '13px', color: 'var(--color-mute)', fontWeight: 400 }}>
+                        <span style={{ fontSize: '13.5px', color: 'var(--color-mute)', fontWeight: 400 }}>
                           {plan.period}
                         </span>
                       )}
@@ -178,12 +202,16 @@ export default function Pricing() {
 
                     {/* Lista de Recursos */}
                     <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'clamp(7px, 1vh, 11px)', marginBottom: 'clamp(16px, 2.2vh, 26px)' }}>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
                       {plan.features.map((feature, fIdx) => (
                         <li key={fIdx} className="reveal-item-stagger" style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: 'clamp(11.5px, 0.82vw, 12.8px)', color: 'var(--color-ink)', lineHeight: 1.4 }}>
+                        <li key={fIdx} className="reveal-item-stagger" style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13px', color: 'var(--color-ink)', lineHeight: 1.45 }}>
                           <div
                             style={{
                               width: '16px',
                               height: '16px',
+                              width: '18px',
+                              height: '18px',
                               borderRadius: '50%',
                               background: 'var(--color-chip)',
                               display: 'flex',
@@ -195,6 +223,7 @@ export default function Pricing() {
                             }}
                           >
                             <Check size={11} strokeWidth={2.5} />
+                            <Check size={12} strokeWidth={2.5} />
                           </div>
                           <span>{feature}</span>
                         </li>
@@ -207,9 +236,11 @@ export default function Pricing() {
                     href={plan.href}
                     className={plan.buttonClass}
                     style={{ width: '100%', justifyContent: 'center', padding: 'clamp(9px, 1.2vh, 11px) 18px', fontSize: 'clamp(12.5px, 0.88vw, 13.5px)' }}
+                    style={{ width: '100%', justifyContent: 'center', padding: '12px 20px', fontSize: '14px' }}
                   >
                     <span>{plan.buttonText}</span>
                     <ArrowRight size={14} />
+                    <ArrowRight size={15} />
                   </a>
 
                 </div>
@@ -222,6 +253,10 @@ export default function Pricing() {
         <div style={{ marginTop: 'clamp(12px, 1.8vh, 22px)', textAlign: 'center' }}>
           <p style={{ fontSize: '11.5px', color: 'var(--color-faint)' }}>
             * Valores e recursos fictícios para visualização. Podem ser customizados posteriormente conforme sua tabela comercial.
+        {/* Nota explicativa */}
+        <div style={{ marginTop: '28px', textAlign: 'center' }}>
+          <p style={{ fontSize: '12px', color: 'var(--color-faint)', margin: 0 }}>
+            * Valores e recursos para demonstração. Planos flexíveis conforme o número de unidades e edifícios sob sua gestão.
           </p>
         </div>
 
@@ -229,3 +264,4 @@ export default function Pricing() {
     </section>
   );
 }
+

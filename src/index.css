@@ -8,15 +8,19 @@
 
 :root {
   --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Tokens do Viston (mesmo padrão de app/lib/theme.js e app/globals.css) */
   --color-page: #F5F6F8;
+  /* Tokens Oficiais do Viston - Engenharia & Gestão Predial */
+  --color-page: #F8F9FA;
   --color-card: #FFFFFF;
   --color-chip: #ECEEF2;
   --color-line: rgba(16, 19, 23, 0.08);
   --color-accent: #F5C518;
   --color-accent-hover: #E8B800;
   --color-accent-soft: rgba(245, 197, 24, 0.18);
+  --color-accent-soft: rgba(245, 197, 24, 0.16);
   --color-accent-ink: #8A6B00;
   --color-onaccent: #000000;
 
@@ -24,18 +28,33 @@
   --color-ink: rgba(16, 19, 23, 0.92);
   --color-mute: rgba(16, 19, 23, 0.64);
   --color-faint: rgba(16, 19, 23, 0.52);
+  /* Tipografia & Contraste */
+  --color-ink: #101317;
+  --color-ink-secondary: rgba(16, 19, 23, 0.72);
+  --color-mute: rgba(16, 19, 23, 0.60);
+  --color-faint: rgba(16, 19, 23, 0.44);
 
   /* Escala de raio do repositório (R.card = 12, R.control = 16, R.pill = 12, R.badge = 999) */
   --radius-card: 12px;
   --radius-control: 16px;
   --radius-pill: 12px;
+  /* Escala de Raios (Design Engineering Apple / Linear Standard) */
+  --radius-card: 16px;
+  --radius-control: 12px;
+  --radius-pill: 999px;
   --radius-badge: 999px;
 
   /* Fio de separação sutil (boxShadow ao invés de bordas pesadas, sem glow) */
+  /* Sombras Multicamadas em Profundidade Suave (Emil Kowalski Craft) */
+  --card-border: 1px solid rgba(16, 19, 23, 0.08);
   --card-ring: 0 0 0 1px rgba(16, 19, 23, 0.08);
   --shadow-subtle: 0 1px 2px rgba(16, 19, 23, 0.04);
+  --shadow-subtle: 0 1px 3px rgba(16, 19, 23, 0.04), 0 4px 12px rgba(16, 19, 23, 0.02);
+  --shadow-card: 0 2px 5px rgba(16, 19, 23, 0.04), 0 10px 28px -6px rgba(16, 19, 23, 0.06);
+  --shadow-elevated: 0 8px 30px -4px rgba(16, 19, 23, 0.10), 0 20px 48px -10px rgba(16, 19, 23, 0.08);
 
   /* Curvas e Tokens de Animação Profissional (Emil Kowalski / Apple Standards) */
+  /* Curvas de Movimento e Física (Emil Kowalski / Apple Standards) */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
@@ -52,6 +71,7 @@ body {
   background-color: var(--color-page);
   color: var(--color-ink);
   line-height: 1.55;
+  line-height: 1.6;
   font-weight: 400;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -59,11 +79,24 @@ body {
 }
 
 /* Hierarquia oficial do Viston: 900 wordmark, 600 titula, 500 ação, 400 corpo */
+/* Tipografia de Precisão Suíça / Engenharia */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family);
   letter-spacing: -0.025em;
   font-weight: 600;
   color: var(--color-ink);
+}
+
+h1 {
+  letter-spacing: -0.035em;
+}
+
+h2 {
+  letter-spacing: -0.028em;
+}
+
+h3 {
+  letter-spacing: -0.02em;
 }
 
 a {
@@ -78,33 +111,113 @@ button {
   background: none;
 }
 
+/* Containers Padronizados */
 .container {
   width: 100%;
   max-width: 1200px;
+  max-width: 1220px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 24px;
   padding-right: 24px;
+  padding-left: clamp(20px, 3.5vw, 32px);
+  padding-right: clamp(20px, 3.5vw, 32px);
 }
 
 /* Container compacto e equilibrado exclusivo para a primeira parte (Navbar e Hero) */
 .container-hero {
   width: 100%;
   max-width: 1280px;
+  max-width: 1260px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 28px;
   padding-right: 28px;
+  padding-left: clamp(20px, 3.5vw, 32px);
+  padding-right: clamp(20px, 3.5vw, 32px);
 }
 
 @media (max-width: 768px) {
   .container-hero {
     padding-left: 20px;
     padding-right: 20px;
+/* -------------------------------------------------------------
+   SISTEMA DE SEÇÕES ESPAÇOSAS E RITMO VERTICAL NOBRE (Sem Espremer)
+------------------------------------------------------------- */
+.section-stage {
+  padding-top: clamp(80px, 10vh, 120px);
+  padding-bottom: clamp(80px, 10vh, 120px);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.hero-stage {
+  padding-top: clamp(104px, 14vh, 144px);
+  padding-bottom: clamp(64px, 8vh, 92px);
+  background: var(--color-page);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  gap: clamp(32px, 4.5vw, 64px);
+  align-items: center;
+}
+
+@media (max-width: 991px) {
+  .hero-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
   }
 }
 
 /* Botões com micro-interações táteis e feedback instantâneo (Emil Kowalski recipe) */
+.two-sides-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+
+@media (max-width: 991px) {
+  .two-sides-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+.problem-solution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(16px, 2.2vw, 24px);
+}
+
+@media (max-width: 860px) {
+  .problem-solution-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.2vw, 28px);
+  align-items: stretch;
+}
+
+@media (max-width: 991px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* -------------------------------------------------------------
+   BOTÕES COM RESPOSTA TÁTIL INSTANTÂNEA (:active scale 0.97)
+------------------------------------------------------------- */
 .btn-gold {
   display: inline-flex;
   align-items: center;
@@ -113,14 +226,27 @@ button {
   background: var(--color-accent);
   color: var(--color-onaccent);
   padding: 11px 22px;
+  padding: 12px 26px;
   border-radius: var(--radius-control);
   font-weight: 500;
+  font-weight: 600;
   font-size: 14.5px;
   border: none;
   transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(245, 197, 24, 0.25), 0 4px 14px rgba(245, 197, 24, 0.18);
+  transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
   user-select: none;
   position: relative;
   overflow: hidden;
+}
+
+.btn-gold svg {
+  transition: transform 160ms var(--ease-out);
+}
+
+.btn-gold:hover svg {
+  transform: translateX(3px);
 }
 
 .btn-gold:active {
@@ -135,14 +261,26 @@ button {
   background: #101317;
   color: #FFFFFF;
   padding: 11px 22px;
+  padding: 12px 26px;
   border-radius: var(--radius-control);
   font-weight: 500;
   font-size: 14.5px;
   border: none;
   transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
   user-select: none;
   position: relative;
   overflow: hidden;
+}
+
+.btn-dark svg {
+  transition: transform 160ms var(--ease-out);
+}
+
+.btn-dark:hover svg {
+  transform: translateX(3px);
 }
 
 .btn-dark:active {
@@ -157,12 +295,19 @@ button {
   background: transparent;
   color: var(--color-ink);
   padding: 10px 20px;
+  padding: 11px 22px;
   border-radius: var(--radius-control);
   font-weight: 500;
   font-size: 14px;
   border: 1px solid var(--color-line);
   transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+  transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out), border-color 140ms var(--ease-out);
   user-select: none;
+}
+
+.btn-ghost:hover {
+  background: rgba(16, 19, 23, 0.04);
+  border-color: rgba(16, 19, 23, 0.16);
 }
 
 .btn-ghost:active {
@@ -190,6 +335,9 @@ button {
 }
 
 /* Cartão Viston: elevação física sem recalcular layout */
+/* -------------------------------------------------------------
+   CARD VISTON (Superfícies Nítidas & Sombras Multicamadas)
+------------------------------------------------------------- */
 .card-viston {
   background: var(--color-card);
   border-radius: var(--radius-card);
@@ -197,6 +345,9 @@ button {
   border: none;
   transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out), background-color 200ms var(--ease-out);
   position: relative;
+  border: var(--card-border);
+  box-shadow: var(--shadow-card);
+  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out), border-color 220ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -205,11 +356,18 @@ button {
     box-shadow: 0 16px 36px -8px rgba(16, 19, 23, 0.08), var(--card-ring);
     background: #FCFCFD;
   }
+.card-viston:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
+  border-color: rgba(16, 19, 23, 0.14);
 }
 
 /* Card Destaque (Plano Profissional) com pulso elegante de respiração */
+/* Destaque sutil para o card selecionado/popular */
 .card-featured-glow {
   animation: featuredCardPulse 4s ease-in-out infinite;
+  border: 2px solid var(--color-accent) !important;
+  box-shadow: 0 4px 20px rgba(245, 197, 24, 0.15), var(--shadow-elevated) !important;
 }
 
 @keyframes featuredCardPulse {
@@ -231,6 +389,7 @@ button {
      * Títulos/Headers: Elevação e desfoque suave de profundidade (.reveal-item / .reveal-curtain)
    - Timings orgânicos: 750ms a 950ms com curva customizada --ease-drawer
    - Suporte nativo a scroll scrubber com animation-timeline: view()
+   REVELAÇÕES DE MOVIMENTO EMIL KOWALSKI (Zero Blur, Física Real)
 ------------------------------------------------------------- */
 
 /* 1. Elevação geral com foco de profundidade */
@@ -242,6 +401,9 @@ button {
   will-change: opacity, transform, filter;
   transition: opacity 1000ms var(--ease-out), transform 1050ms var(--ease-drawer);
   will-change: opacity, transform;
+.text-mask-wrapper {
+  overflow: hidden;
+  display: block;
 }
 
 .reveal-item.is-visible {
@@ -252,6 +414,8 @@ button {
 
 /* 2. Encaixe 3D Flanco Esquerdo (ProblemSolution) */
 .reveal-dock-left {
+.reveal-text-line {
+  display: inline-block;
   opacity: 0;
   transform: perspective(1200px) rotateY(7deg) rotateZ(-1deg) translateY(36px) scale(0.95);
   filter: blur(3px);
@@ -259,16 +423,24 @@ button {
   will-change: opacity, transform, filter;
   transition: opacity 1100ms var(--ease-out), transform 1150ms var(--ease-drawer);
   will-change: opacity, transform;
+  transform: translateY(115%);
+  transition: transform 1050ms var(--ease-drawer), opacity 950ms var(--ease-out);
+  will-change: transform, opacity;
 }
 
 .reveal-dock-left.is-visible {
+.is-visible .reveal-text-line,
+.is-visible.reveal-text-line {
   opacity: 1;
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(0) scale(1);
   filter: blur(0);
+  transform: translateY(0);
 }
 
 /* 3. Encaixe 3D Flanco Direito (ProblemSolution) */
 .reveal-dock-right {
+.reveal-badge-text {
+  display: inline-block;
   opacity: 0;
   transform: perspective(1200px) rotateY(-7deg) rotateZ(1deg) translateY(36px) scale(0.95);
   filter: blur(3px);
@@ -276,16 +448,23 @@ button {
   will-change: opacity, transform, filter;
   transition: opacity 1100ms var(--ease-out), transform 1150ms var(--ease-drawer);
   will-change: opacity, transform;
+  transform: translateY(-8px) scale(0.96);
+  transition: transform 750ms var(--ease-out), opacity 750ms var(--ease-out);
+  will-change: transform, opacity;
 }
 
 .reveal-dock-right.is-visible {
+.is-visible .reveal-badge-text,
+.is-visible.reveal-badge-text {
   opacity: 1;
   transform: perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(0) scale(1);
   filter: blur(0);
+  transform: translateY(0) scale(1);
 }
 
 /* 4. Deslizamento Lateral Estrutural (TwoSidesShowcase Pilares) */
 .reveal-slide-left {
+.reveal-sub-text {
   opacity: 0;
   transform: translateX(-40px) scale(0.96);
   filter: blur(3px);
@@ -293,12 +472,18 @@ button {
   will-change: opacity, transform, filter;
   transition: opacity 1050ms var(--ease-out), transform 1150ms var(--ease-drawer);
   will-change: opacity, transform;
+  transform: translateY(16px);
+  transition: transform 900ms var(--ease-drawer) 200ms, opacity 900ms var(--ease-out) 200ms;
+  will-change: transform, opacity;
 }
 
 .reveal-slide-left.is-visible {
+.is-visible .reveal-sub-text,
+.is-visible.reveal-sub-text {
   opacity: 1;
   transform: translateX(0) scale(1);
   filter: blur(0);
+  transform: translateY(0);
 }
 
 /* 5. Ascensão Isométrica 3D Profunda (TwoSidesShowcase Maquete) */
@@ -311,6 +496,9 @@ button {
   transition: opacity 1200ms var(--ease-out), transform 1300ms var(--ease-drawer);
   will-change: opacity, transform;
 }
+.line-delay-1 { transition-delay: 80ms; }
+.line-delay-2 { transition-delay: 220ms; }
+.line-delay-3 { transition-delay: 360ms; }
 
 .reveal-isometric-dock.is-visible {
   opacity: 1;
@@ -320,6 +508,8 @@ button {
 
 /* 6. Desdobramento em Leque 3D: Carta Esquerda (Pricing Essencial) */
 .reveal-fan-left {
+/* Encaixes de Cards Físicos */
+.reveal-dock-left {
   opacity: 0;
   transform: perspective(1200px) rotateZ(-3.5deg) translateY(44px) scale(0.94);
   filter: blur(3px);
@@ -327,6 +517,9 @@ button {
   will-change: opacity, transform, filter;
   transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer);
   will-change: opacity, transform;
+  transform: perspective(1000px) rotateY(6deg) translateY(24px) scale(0.97);
+  transition: transform 1000ms var(--ease-drawer), opacity 900ms var(--ease-out);
+  will-change: transform, opacity;
 }
 
 .reveal-fan-left.is-visible {
@@ -337,6 +530,7 @@ button {
 
 /* 7. Elevação de Destaque Central (Pricing Profissional) */
 .reveal-fan-center {
+.reveal-dock-right {
   opacity: 0;
   transform: translateY(52px) scale(0.94);
   filter: blur(3px);
@@ -344,6 +538,9 @@ button {
   will-change: opacity, transform, filter;
   transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer);
   will-change: opacity, transform;
+  transform: perspective(1000px) rotateY(-6deg) translateY(24px) scale(0.97);
+  transition: transform 1000ms var(--ease-drawer), opacity 900ms var(--ease-out);
+  will-change: transform, opacity;
 }
 
 .reveal-fan-center.is-visible {
@@ -354,6 +551,7 @@ button {
 
 /* 8. Desdobramento em Leque 3D: Carta Direita (Pricing Corporativo) */
 .reveal-fan-right {
+.reveal-slide-left {
   opacity: 0;
   transform: perspective(1200px) rotateZ(3.5deg) translateY(44px) scale(0.94);
   filter: blur(3px);
@@ -361,6 +559,9 @@ button {
   will-change: opacity, transform, filter;
   transition: opacity 1150ms var(--ease-out), transform 1200ms var(--ease-drawer);
   will-change: opacity, transform;
+  transform: translateX(-32px) scale(0.98);
+  transition: transform 1000ms var(--ease-drawer), opacity 900ms var(--ease-out);
+  will-change: transform, opacity;
 }
 
 .reveal-fan-right.is-visible {
@@ -371,6 +572,7 @@ button {
 
 /* 9. Abertura Arquitetônica em Máscara (CTA) */
 .reveal-aperture {
+.reveal-isometric-dock {
   opacity: 0;
   clip-path: inset(8% 4% 8% 4% round 24px);
   transform: translateY(36px) scale(0.96);
@@ -379,6 +581,9 @@ button {
   will-change: opacity, clip-path, transform, filter;
   transition: opacity 1150ms var(--ease-out), clip-path 1250ms var(--ease-drawer), transform 1250ms var(--ease-drawer);
   will-change: opacity, clip-path, transform;
+  transform: translateY(36px) scale(0.95);
+  transition: transform 1150ms var(--ease-drawer), opacity 1000ms var(--ease-out);
+  will-change: transform, opacity;
 }
 
 .reveal-aperture.is-visible {
@@ -390,6 +595,7 @@ button {
 
 /* Revelação com elasticidade / mola */
 .reveal-spring {
+.reveal-fan-left {
   opacity: 0;
   transform: translateY(24px) scale(0.96);
   filter: blur(2px);
@@ -397,6 +603,9 @@ button {
   will-change: opacity, transform, filter;
   transition: opacity 900ms var(--ease-out), transform 950ms var(--ease-spring);
   will-change: opacity, transform;
+  transform: rotate(-3deg) translateY(28px) scale(0.96);
+  transition: transform 1050ms var(--ease-drawer), opacity 950ms var(--ease-out);
+  will-change: transform, opacity;
 }
 
 .reveal-spring.is-visible {
@@ -496,9 +705,12 @@ button {
 /* Revelação Dinâmica de Frases & Letras na Rolagem (Linear / Apple / Emil Kowalski) */
 .reveal-text-line {
   display: inline-block;
+.reveal-fan-center {
   opacity: 0;
   transform: translateY(115%);
   transition: transform 1100ms var(--ease-drawer), opacity 1000ms var(--ease-out);
+  transform: translateY(36px) scale(0.96);
+  transition: transform 1050ms var(--ease-drawer), opacity 950ms var(--ease-out);
   will-change: transform, opacity;
 }
 
@@ -510,9 +722,12 @@ button {
 
 .reveal-badge-text {
   display: inline-block;
+.reveal-fan-right {
   opacity: 0;
   transform: translateY(-10px) scale(0.96);
   transition: transform 800ms var(--ease-out), opacity 800ms var(--ease-out);
+  transform: rotate(3deg) translateY(28px) scale(0.96);
+  transition: transform 1050ms var(--ease-drawer), opacity 950ms var(--ease-out);
   will-change: transform, opacity;
 }
 
@@ -523,28 +738,50 @@ button {
 }
 
 .reveal-sub-text {
+.reveal-aperture {
   opacity: 0;
   transform: translateY(18px);
   transition: transform 950ms var(--ease-drawer) 260ms, opacity 950ms var(--ease-out) 260ms;
   will-change: transform, opacity;
+  clip-path: inset(8% 4% 8% 4% round 16px);
+  transform: scale(0.97);
+  transition: clip-path 1100ms var(--ease-drawer), transform 1100ms var(--ease-drawer), opacity 900ms var(--ease-out);
+  will-change: clip-path, transform, opacity;
 }
 
 .is-visible .reveal-sub-text,
 .is-visible.reveal-sub-text {
+.is-visible.reveal-dock-left,
+.is-visible.reveal-dock-right,
+.is-visible.reveal-slide-left,
+.is-visible.reveal-isometric-dock,
+.is-visible.reveal-fan-left,
+.is-visible.reveal-fan-center,
+.is-visible.reveal-fan-right,
+.is-visible.reveal-aperture {
   opacity: 1;
   transform: translateY(0);
+  transform: none;
+  clip-path: inset(0 0 0 0 round 16px);
 }
 
 /* Staggers entre linhas e frases (ritmo calmo e perceptível) */
 .line-delay-1 { transition-delay: 100ms; }
 .line-delay-2 { transition-delay: 260ms; }
 .line-delay-3 { transition-delay: 420ms; }
+.delay-1 { transition-delay: 60ms; }
+.delay-2 { transition-delay: 180ms; }
+.delay-3 { transition-delay: 300ms; }
+.delay-4 { transition-delay: 420ms; }
 
 /* Revelação interna dos cards (itens e listas) */
+/* Stagger interno em listas */
 .reveal-item-stagger {
   opacity: 0;
   transform: translateY(14px);
   transition: transform 750ms var(--ease-out), opacity 750ms var(--ease-out);
+  transform: translateY(12px);
+  transition: transform 650ms var(--ease-out), opacity 650ms var(--ease-out);
   will-change: transform, opacity;
 }
 
@@ -559,16 +796,27 @@ button {
 .is-visible .reveal-item-stagger:nth-child(4) { transition-delay: 480ms; }
 .is-visible .reveal-item-stagger:nth-child(5) { transition-delay: 600ms; }
 .is-visible .reveal-item-stagger:nth-child(6) { transition-delay: 720ms; }
+.is-visible .reveal-item-stagger:nth-child(1) { transition-delay: 100ms; }
+.is-visible .reveal-item-stagger:nth-child(2) { transition-delay: 180ms; }
+.is-visible .reveal-item-stagger:nth-child(3) { transition-delay: 260ms; }
+.is-visible .reveal-item-stagger:nth-child(4) { transition-delay: 340ms; }
+.is-visible .reveal-item-stagger:nth-child(5) { transition-delay: 420ms; }
+.is-visible .reveal-item-stagger:nth-child(6) { transition-delay: 500ms; }
 
 /* Flutuação física suave em gravidade zero */
 @keyframes floatPhone3D {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-7px); }
+/* Micro-pop tátil em ícones */
+.icon-spring-pop {
+  transition: transform 260ms var(--ease-spring);
 }
 
 @keyframes floatPhone3DBack {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-9px); }
+.card-viston:hover .icon-spring-pop {
+  transform: scale(1.12);
 }
 
 .float-mockup-front {
@@ -581,9 +829,11 @@ button {
 
 /* -------------------------------------------------------------
    COREOGRAFIA DE CARGA DO HERO (Emil Kowalski Single Orchestration)
+   COREOGRAFIA DE ENTRADA DO HERO
 ------------------------------------------------------------- */
 .hero-badge-enter {
   animation: heroBadgeEnter 650ms var(--ease-out) 100ms backwards;
+  animation: heroBadgeEnter 600ms var(--ease-out) 80ms backwards;
 }
 
 @keyframes heroBadgeEnter {
@@ -595,14 +845,23 @@ button {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+  from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .hero-headline-enter {
   animation: textSlideUp 1050ms var(--ease-drawer) 200ms backwards;
+  animation: textSlideUp 1000ms var(--ease-drawer) 160ms backwards;
+}
+
+@keyframes textSlideUp {
+  from { opacity: 0; transform: translateY(105%); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-sub-enter {
   animation: heroSubEnter 800ms var(--ease-out) 350ms backwards;
+  animation: heroSubEnter 750ms var(--ease-out) 280ms backwards;
 }
 
 @keyframes heroSubEnter {
@@ -614,24 +873,30 @@ button {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .hero-cta-enter {
   animation: heroSubEnter 800ms var(--ease-out) 480ms backwards;
+  animation: heroSubEnter 750ms var(--ease-out) 380ms backwards;
 }
 
 .hero-bullets-enter {
   animation: heroSubEnter 800ms var(--ease-out) 600ms backwards;
+  animation: heroSubEnter 750ms var(--ease-out) 480ms backwards;
 }
 
 .hero-mockup-enter {
   animation: heroMockupEnter 1200ms var(--ease-drawer) 260ms backwards;
+  animation: heroMockupEnter 1150ms var(--ease-drawer) 220ms backwards;
 }
 
 @keyframes heroMockupEnter {
   from {
     opacity: 0;
     transform: translateY(28px) scale(0.96) rotateY(-6deg);
+    transform: translateY(32px) scale(0.95) rotateY(-8deg);
   }
   to {
     opacity: 1;
@@ -641,6 +906,7 @@ button {
 
 .hero-social-enter {
   animation: heroSubEnter 850ms var(--ease-out) 720ms backwards;
+  animation: heroSubEnter 800ms var(--ease-out) 580ms backwards;
 }
 
 /* Atmosfera sutil do CTA escuro */
@@ -650,6 +916,10 @@ button {
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.3);
+/* Flutuação física suave em gravidade zero */
+@keyframes floatPhone3D {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
 /* -------------------------------------------------------------
@@ -664,6 +934,9 @@ button {
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
+@keyframes floatPhone3DBack {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
 @media (min-width: 992px) {
@@ -673,6 +946,9 @@ button {
     padding-top: clamp(74px, 9.5vh, 98px);
     padding-bottom: clamp(14px, 2vh, 26px);
   }
+.float-mockup-front {
+  animation: floatPhone3D 6.5s ease-in-out infinite;
+}
 
   .hero-viewport-fit .container-hero {
     display: flex;
@@ -690,6 +966,8 @@ button {
     flex: 1;
     margin-bottom: clamp(12px, 2vh, 24px);
   }
+.float-mockup-back {
+  animation: floatPhone3DBack 8s ease-in-out infinite 0.5s;
 }
 
 @media (max-width: 991px) {
@@ -705,6 +983,9 @@ button {
     gap: 36px;
     margin-bottom: 36px;
   }
+/* Indicador sonar pulsar */
+.sonar-beacon {
+  position: relative;
 }
 
 /* Scaler proporcional para o HandMockup3D */
@@ -712,13 +993,27 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+.sonar-beacon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  transform: translate(-50%, -50%);
+  animation: sonarPulse 2.4s ease-out infinite;
+  opacity: 0.6;
 }
 
 .hero-mockup-scaler {
   transform-origin: center center;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
+@keyframes sonarPulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
 }
 
 /* Em telas de laptop HD (1366x768, 1440x900) ou alturas compactas */
@@ -794,14 +1089,21 @@ button {
 /* -------------------------------------------------------------
    SISTEMA DE ADAPTAÇÃO PROPORCIONAL DE ÁREA (Viewport Proportions)
    Adapta cada seção para ocupar harmoniosamente a proporção da tela
+   CARTÃO AMBIENTE NOTURNO DO CTA
 ------------------------------------------------------------- */
 .section-viewport-fit {
+.cta-ambient-card {
   position: relative;
   box-sizing: border-box;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background: radial-gradient(circle at 50% -10%, #1e2430 0%, #101317 80%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
 }
 
 @media (min-width: 992px) {
@@ -878,6 +1180,9 @@ button {
 }
 
 /* Acessibilidade total: redução de movimento conforme preferência do sistema */
+/* -------------------------------------------------------------
+   ACESSIBILIDADE TOTAL (PREFERS-REDUCED-MOTION)
+------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

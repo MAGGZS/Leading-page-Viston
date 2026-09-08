@@ -8,6 +8,7 @@ export default function Footer() {
 
   return (
     <footer style={{ background: '#F8F9FA', color: '#6C757D', padding: 'clamp(44px, 6vh, 68px) 0 clamp(20px, 3vh, 32px)', borderTop: '1px solid rgba(0, 0, 0, 0.08)' }}>
+    <footer style={{ background: 'var(--color-page)', color: 'var(--color-mute)', padding: 'clamp(56px, 8vh, 80px) 0 clamp(24px, 4vh, 36px)', borderTop: '1px solid var(--color-line)' }}>
       <div className="container">
         
         {/* Grade de Colunas */}
@@ -17,6 +18,8 @@ export default function Footer() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
             gap: 'clamp(24px, 3vw, 44px)',
             marginBottom: 'clamp(28px, 4vh, 48px)'
+            gap: 'clamp(32px, 4vw, 56px)',
+            marginBottom: 'clamp(40px, 6vh, 56px)'
           }}
         >
           {/* Coluna 1: Marca & Propósito */}
@@ -29,10 +32,12 @@ export default function Footer() {
               />
             </div>
             <p style={{ fontSize: '13.5px', lineHeight: 1.6, color: '#6C757D', marginBottom: '20px' }}>
+            <p style={{ fontSize: '13.5px', lineHeight: 1.6, color: 'var(--color-mute)', marginBottom: '18px' }}>
               A plataforma definitiva de vistorias técnicas e gestão de ocorrências para condomínios, 
               administradoras e empresas de engenharia predial.
             </p>
             <span style={{ fontSize: '12px', color: '#0B0B0B', fontWeight: 700, letterSpacing: '0.04em' }}>
+            <span style={{ fontSize: '12px', color: 'var(--color-ink)', fontWeight: 600, letterSpacing: '0.04em' }}>
               Viston • Engenharia & Gestão Predial
             </span>
           </div>
@@ -40,12 +45,14 @@ export default function Footer() {
           {/* Coluna 2: Navegação Direta */}
           <div>
             <h4 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <h4 style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '18px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Navegação
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px' }}>
               <li>
                 <a href="#resolucao" style={{ color: 'var(--color-mute)', transition: 'color 0.15s ease', textDecoration: 'none' }}>
                   O Que Resolve
+                  A Resolução
                 </a>
               </li>
               <li>
@@ -69,6 +76,7 @@ export default function Footer() {
           {/* Coluna 3: Recursos da Plataforma */}
           <div>
             <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#0B0B0B', marginBottom: '18px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <h4 style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '18px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Recursos
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13.5px' }}>
@@ -76,12 +84,19 @@ export default function Footer() {
               <li style={{ color: '#495057' }}>Quadro Kanban de Ocorrências</li>
               <li style={{ color: '#495057' }}>Modo Rascunho Offline</li>
               <li style={{ color: '#495057' }}>Relatórios Técnicos em PDF</li>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px', color: 'var(--color-ink-secondary)' }}>
+              <li>Vistoria Andar por Andar</li>
+              <li>Quadro Kanban com SLA</li>
+              <li>Modo Rascunho Offline</li>
+              <li>Laudos Fotográficos em PDF</li>
             </ul>
           </div>
 
           {/* Coluna 4: Papéis Integrados */}
+          {/* Coluna 4: Perfis de Acesso */}
           <div>
             <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#0B0B0B', marginBottom: '18px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <h4 style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--color-ink)', marginBottom: '18px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Perfis de Acesso
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13.5px' }}>
@@ -89,6 +104,11 @@ export default function Footer() {
               <li style={{ color: '#495057' }}>Inspetor de Campo</li>
               <li style={{ color: '#495057' }}>Moderador de Fila</li>
               <li style={{ color: '#495057' }}>Técnico Responsável</li>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px', color: 'var(--color-ink-secondary)' }}>
+              <li>Gestor Predial & Síndico</li>
+              <li>Inspetor de Campo</li>
+              <li>Moderador de Fila</li>
+              <li>Técnico Responsável</li>
             </ul>
           </div>
         </div>
@@ -97,6 +117,7 @@ export default function Footer() {
         <div
           style={{
             borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+            borderTop: '1px solid var(--color-line)',
             paddingTop: '28px',
             display: 'flex',
             flexWrap: 'wrap',
@@ -112,19 +133,24 @@ export default function Footer() {
             <span>Tecnologia para Vistorias e Governança Predial</span>
             <button
               onClick={scrollToTop}
+              className="btn-ghost"
               style={{
                 width: '36px',
                 height: '36px',
+                width: '38px',
+                height: '38px',
                 borderRadius: '50%',
                 background: '#FFFFFF',
                 border: '1px solid rgba(0, 0, 0, 0.1)',
                 color: '#0B0B0B',
+                padding: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+                cursor: 'pointer'
               }}
               title="Voltar ao topo"
             >
@@ -137,3 +163,4 @@ export default function Footer() {
     </footer>
   );
 }
+
