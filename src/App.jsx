@@ -1,35 +1,43 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import SocialProofMarquee from './components/SocialProofMarquee';
 import ProblemSolution from './components/ProblemSolution';
+import HowItWorksGallery from './components/HowItWorksGallery';
 import TwoSidesShowcase from './components/TwoSidesShowcase';
+import ProfilesSection from './components/ProfilesSection';
 import Pricing from './components/Pricing';
+import FAQ from './components/FAQ';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="viston-landing-page">
+    <>
+      <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
       <Navbar />
-      <main>
-        {/* Bloco 1: Hero com 3D Hand Mockup */}
+
+      <main id="conteudo">
+        {/* Hero dividido: proposta à esquerda, réplica do app à direita */}
         <Hero />
-        
-        {/* Bloco 2: A Resolução em 1 Olhar (Antes caótico vs Depois com Viston) */}
+        {/* Faixa de normas e capacidades (única marquee) */}
+        <SocialProofMarquee />
+        {/* Antes e depois, com cabeçalho fixo à esquerda */}
         <ProblemSolution />
-        
-        {/* Bloco 3: Campo & Gestão (Smartphone em campo vs Desktop de gestão + Mockups Isométricos 3D) */}
+        {/* Galeria em acordeão com fotos */}
+        <HowItWorksGallery />
+        {/* Mockups à esquerda, campo e gestão à direita */}
         <TwoSidesShowcase />
-        
-        {/* Bloco 4: Planos & Licenças (3 Cards Fictícios) */}
+        {/* Abas verticais dos 5 perfis */}
+        <ProfilesSection />
         <Pricing />
-        
-        {/* Bloco 5: Chamada Final de Apresentação / Contato (15 minutos) */}
+        {/* FAQ em duas colunas */}
+        <FAQ />
+        {/* Fechamento: painel escuro com formulário */}
         <CTA />
       </main>
+
       <Footer />
-    </div>
+    </>
   );
 }
-
-

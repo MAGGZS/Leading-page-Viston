@@ -27,7 +27,7 @@ import { useMouseTilt } from '../hooks/useMouseTilt';
  * - BottomNav: Barra inferior de navegação nativa com abas Início, Chamados, Histórico e Perfil
  */
 export default function HandMockup3D({ imageSrc = null }) {
-  const [containerRef, tilt] = useMouseTilt(7);
+  const [containerRef] = useMouseTilt(7);
 
   // Matriz de dados reais para o CalendarHeatmap de Setembro (4 semanas representativas)
   const heatmapDays = [
@@ -83,7 +83,7 @@ export default function HandMockup3D({ imageSrc = null }) {
             background: 'linear-gradient(145deg, #2f3238 0%, #17181c 45%, #0d0e10 100%)',
             padding: '10px',
             position: 'relative',
-            transform: `rotateY(${-13 + tilt.y}deg) rotateX(${11 + tilt.x}deg) rotateZ(2.5deg)`,
+            transform: 'rotateY(calc(-13deg + var(--tilt-y, 0) * 1deg)) rotateX(calc(11deg + var(--tilt-x, 0) * 1deg)) rotateZ(2.5deg)',
             boxShadow: '-25px 35px 65px -10px rgba(0, 0, 0, 0.45), -5px 10px 20px rgba(0,0,0,0.25)',
             border: '1.5px solid rgba(255, 255, 255, 0.18)',
             transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)',

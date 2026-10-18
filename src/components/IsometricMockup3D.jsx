@@ -10,7 +10,6 @@ import {
   ChevronLeft,
   UserRound,
   CalendarDays,
-  Camera,
   ArrowRight,
   Clock,
   SlidersHorizontal,
@@ -24,19 +23,19 @@ import { useMouseTilt } from '../hooks/useMouseTilt';
  * Renderiza em perspectiva 3D realista os dois lados da operação no smartphone:
  * 1. Celular de Trás (Esquerda): Fila de Chamados e Triagem do Responsável (`/responsavel`)
  *    - SeletorFila autêntico: "A receber (3)", "Em andamento (5)", "Concluídos (24)"
- *    - Cartão de chamado com borda dourada (#F5C518), badges reais de SLA e Prioridade ALTA
+ *    - Cartão de chamado com borda dourada (#F5C518), tempo desde o encaminhamento e Prioridade ALTA
  *    - Botão oficial de ação: MButton "Receber" com ícone Inbox
  *    - Barra inferior BottomNav oficial com a aba Chamados ativa
  * 
  * 2. Celular da Frente (Direita): Formulário de Vistoria em Andamento (`/inspecao` - FloorForm)
  *    - Cabeçalho de inspeção: "Pavimento 14 (Andar 3 de 18)", Edifício Horizon Prime
  *    - Card do Inspetor (Carlos Eduardo) e Data da vistoria com ícones dourados
- *    - Cartão de Ocorrência 1 com campos reais: Tipo, Categoria, Prioridade e Fotos
+ *    - Cartão de Ocorrência 1 com campos reais: Tipo, Categoria, Prioridade, Descrição e Responsável
  *    - Ações oficiais MButton: "Avançar para Pavimento 13" e MButtonSoft "+ Adicionar ocorrência"
  *    - Barra inferior BottomNav oficial
  */
 export default function IsometricMockup3D({ frontImage = null, backImage = null }) {
-  const [containerRef, tilt] = useMouseTilt(7);
+  const [containerRef] = useMouseTilt(7);
 
   return (
     <div
@@ -71,7 +70,7 @@ export default function IsometricMockup3D({ frontImage = null, backImage = null 
           background: 'linear-gradient(135deg, #2E3035 0%, #151618 100%)',
           padding: '8px',
           border: '1.5px solid rgba(255, 255, 255, 0.16)',
-          transform: `rotateX(${20 + tilt.x * 0.7}deg) rotateY(${-18 + tilt.y * 0.7}deg) rotateZ(7.5deg)`,
+          transform: 'rotateX(calc(20deg + var(--tilt-x, 0) * 0.7deg)) rotateY(calc(-18deg + var(--tilt-y, 0) * 0.7deg)) rotateZ(7.5deg)',
           boxShadow: '-24px 30px 60px rgba(0, 0, 0, 0.35)',
           zIndex: 2,
           transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -290,7 +289,7 @@ export default function IsometricMockup3D({ frontImage = null, backImage = null 
                       gap: '3px'
                     }}
                   >
-                    <Clock size={8} /> SLA: 2h
+                    <Clock size={8} /> Encaminhado há 2h
                   </span>
                   <span
                     style={{
@@ -411,7 +410,7 @@ export default function IsometricMockup3D({ frontImage = null, backImage = null 
           background: 'linear-gradient(135deg, #32353A 0%, #17181B 100%)',
           padding: '9px',
           border: '1.5px solid rgba(255, 255, 255, 0.24)',
-          transform: `rotateX(${17 + tilt.x * 1.1}deg) rotateY(${-13 + tilt.y * 1.1}deg) rotateZ(5.5deg)`,
+          transform: 'rotateX(calc(17deg + var(--tilt-x, 0) * 1.1deg)) rotateY(calc(-13deg + var(--tilt-y, 0) * 1.1deg)) rotateZ(5.5deg)',
           boxShadow: '-30px 40px 75px rgba(0, 0, 0, 0.42)',
           zIndex: 5,
           transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -570,7 +569,7 @@ export default function IsometricMockup3D({ frontImage = null, backImage = null 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <span style={{ fontSize: '8.5px', color: 'rgba(255, 255, 255, 0.52)' }}>Tipo de manutenção</span>
                   <div style={{ background: '#232323', borderRadius: '8px', padding: '5px 8px', fontSize: '9.5px', color: '#FFFFFF', fontWeight: 600 }}>
-                    Corretiva Imediata
+                    Vazamento
                   </div>
                 </div>
 
@@ -579,7 +578,7 @@ export default function IsometricMockup3D({ frontImage = null, backImage = null 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                     <span style={{ fontSize: '8.5px', color: 'rgba(255, 255, 255, 0.52)' }}>Categoria</span>
                     <div style={{ background: '#232323', borderRadius: '8px', padding: '5px 8px', fontSize: '9px', color: 'rgba(255, 255, 255, 0.9)' }}>
-                      Hidráulica
+                      Corretiva
                     </div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -590,7 +589,7 @@ export default function IsometricMockup3D({ frontImage = null, backImage = null 
                   </div>
                 </div>
 
-                {/* Campo 3: Descrição e Fotos */}
+                {/* Campo 3: Descrição */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <span style={{ fontSize: '8.5px', color: 'rgba(255, 255, 255, 0.52)' }}>Descrição do problema</span>
                   <div style={{ background: '#232323', borderRadius: '8px', padding: '5px 8px', fontSize: '9px', color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.25 }}>
@@ -598,7 +597,7 @@ export default function IsometricMockup3D({ frontImage = null, backImage = null 
                   </div>
                 </div>
 
-                {/* Pill de Foto Oficial */}
+                {/* Responsável sugerido pelo inspetor (campo opcional do formulário) */}
                 <div
                   style={{
                     background: 'rgba(245, 197, 24, 0.1)',
@@ -613,8 +612,8 @@ export default function IsometricMockup3D({ frontImage = null, backImage = null 
                     fontWeight: 600
                   }}
                 >
-                  <Camera size={10} />
-                  <span>2 fotos anexadas (Válvula e Barrilete)</span>
+                  <UserRound size={10} />
+                  <span>Responsável: Marcos Teixeira</span>
                 </div>
               </div>
 

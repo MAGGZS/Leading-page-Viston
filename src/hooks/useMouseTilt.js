@@ -1,84 +1,68 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 /**
- * useMouseTilt - Física de inclinação 3D com amortecimento elástico (lerp)
- * Seguindo as diretrizes de movimento do Emil Kowalski:
- * - Sem paradas bruscas: amortecimento contínuo por interpolação linear
- * - Respeito a prefers-reduced-motion
- * - Cancelamento seguro de requestAnimationFrame
+ * useMouseTilt - inclinação 3D amortecida (lerp) seguindo o cursor.
+ * Escreve --tilt-x / --tilt-y direto no elemento (sem setState por frame),
+ * então nenhuma re-renderização do React acontece durante o movimento.
+ * Os filhos usam: rotateX(calc(11deg + var(--tilt-x, 0) * 1deg)).
  */
 export function useMouseTilt(maxTilt = 6, lerpFactor = 0.08) {
   const ref = useRef(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const targetTilt = useRef({ x: 0, y: 0 });
-  const currentTilt = useRef({ x: 0, y: 0 });
-  const isHovered = useRef(false);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
     const element = ref.current;
     if (!element) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
+    const target = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
     let rafId = null;
 
-    const animate = () => {
-      const dx = targetTilt.current.x - currentTilt.current.x;
-      const dy = targetTilt.current.y - currentTilt.current.y;
+    const write = () => {
+      element.style.setProperty('--tilt-x', current.x.toFixed(2));
+      element.style.setProperty('--tilt-y', current.y.toFixed(2));
+    };
 
-      if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01 || isHovered.current) {
-        currentTilt.current.x += dx * lerpFactor;
-        currentTilt.current.y += dy * lerpFactor;
-        setTilt({
-          x: Math.round(currentTilt.current.x * 100) / 100,
-          y: Math.round(currentTilt.current.y * 100) / 100
-        });
+    const animate = () => {
+      current.x += (target.x - current.x) * lerpFactor;
+      current.y += (target.y - current.y) * lerpFactor;
+      write();
+      if (Math.abs(target.x - current.x) > 0.01 || Math.abs(target.y - current.y) > 0.01) {
         rafId = requestAnimationFrame(animate);
       } else {
-        currentTilt.current.x = targetTilt.current.x;
-        currentTilt.current.y = targetTilt.current.y;
-        setTilt({ ...targetTilt.current });
+        rafId = null;
       }
+    };
+
+    const kick = () => {
+      if (rafId === null) rafId = requestAnimationFrame(animate);
     };
 
     const handleMouseMove = (e) => {
       const rect = element.getBoundingClientRect();
-      const clientX = e.clientX - rect.left;
-      const clientY = e.clientY - rect.top;
-
-      const xNorm = (clientX / rect.width) - 0.5; // -0.5 a 0.5
-      const yNorm = (clientY / rect.height) - 0.5;
-
-      targetTilt.current = {
-        x: -yNorm * maxTilt,
-        y: xNorm * maxTilt
-      };
-
-      if (!isHovered.current) {
-        isHovered.current = true;
-        cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(animate);
-      }
+      const xNorm = (e.clientX - rect.left) / rect.width - 0.5;
+      const yNorm = (e.clientY - rect.top) / rect.height - 0.5;
+      target.x = -yNorm * maxTilt;
+      target.y = xNorm * maxTilt;
+      kick();
     };
 
     const handleMouseLeave = () => {
-      isHovered.current = false;
-      targetTilt.current = { x: 0, y: 0 };
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(animate);
+      target.x = 0;
+      target.y = 0;
+      kick();
     };
 
     element.addEventListener('mousemove', handleMouseMove, { passive: true });
     element.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
+      if (rafId !== null) cancelAnimationFrame(rafId);
       element.removeEventListener('mousemove', handleMouseMove);
       element.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [maxTilt, lerpFactor]);
 
-  return [ref, tilt];
+  return [ref];
 }
-

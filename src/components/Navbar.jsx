@@ -1,143 +1,99 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, LogIn } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { useTheme } from '../hooks/useTheme';
+import { SIGNUP_URL, LOGIN_URL } from '../config';
+
+const LINKS = [
+  { label: 'O que resolve', href: '#resolucao' },
+  { label: 'Como funciona', href: '#como-funciona' },
+  { label: 'Perfis', href: '#perfis' },
+  { label: 'Planos', href: '#planos' },
+  { label: 'Dúvidas', href: '#faq' },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const sentinelRef = useRef(null);
+  const { toggle } = useTheme();
 
+  // Estado "rolado" via IntersectionObserver num sentinela no topo da página (sem listener de scroll).
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
   return (
-    <header
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          transition: 'background-color 200ms var(--ease-out), border-color 200ms var(--ease-out)',
-          background: scrolled ? 'rgba(245, 246, 248, 0.85)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(16px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
-          borderBottom: '1px solid',
-          borderColor: scrolled ? 'rgba(16, 19, 23, 0.08)' : 'transparent',
-        }}
-      >
-      <div className="container-hero" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
-        
-        {/* Logo Oficial Viston */}
-        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img
-            src="/brand/viston-logo-dark.svg"
-            alt="Viston"
-            style={{ height: '28px', width: 'auto', display: 'block' }}
-          />
-        </a>
+    <>
+      <div ref={sentinelRef} aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, width: 1, height: 24 }} />
 
-        {/* Links Desktop Minimalistas (Hierarquia Viston) */}
-        <nav
-          style={{
-            display: 'none',
-            alignItems: 'center',
-            gap: '32px'
-          }}
-          className="desktop-nav"
-        >
-          <a href="#resolucao" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 160ms var(--ease-out)' }}>
-            O Que Resolve
-          </a>
-          <a href="#sistema" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 160ms var(--ease-out)' }}>
-            Campo & Gestão
-          </a>
-          <a href="#planos" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 160ms var(--ease-out)' }}>
-            Planos
-          </a>
-          <a href="#demonstracao" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-mute)', transition: 'color 160ms var(--ease-out)' }}>
-            Contato
-          </a>
-        </nav>
+      <header className={`site-header ${scrolled || open ? 'is-scrolled' : ''}`}>
+        <div className="container">
+          <div className="site-header__bar">
+            {/* Atalho escondido: duplo clique na logo alterna tema claro/escuro */}
+            <a
+              href="#top"
+              className="site-header__logo"
+              aria-label="Viston, início"
+              onDoubleClick={(e) => {
+                e.preventDefault();
+                window.getSelection()?.removeAllRanges();
+                toggle();
+              }}
+            >
+              <img className="logo-on-light" src="/brand/viston-logo-dark.svg" alt="Viston" width="94" height="24" />
+              <img className="logo-on-dark" src="/brand/viston-logo.svg" alt="" aria-hidden="true" width="94" height="24" />
+            </a>
 
-        {/* Botão Sign In */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <a
-            href="#login"
-            className="btn-dark"
-            style={{
-              padding: '9px 20px',
-              fontSize: '13.5px'
-            }}
-          >
-            <LogIn size={15} />
-            <span>Sign In</span>
-          </a>
+            <nav className="site-header__nav" aria-label="Seções">
+              {LINKS.map((link) => (
+                <a key={link.href} href={link.href}>{link.label}</a>
+              ))}
+            </nav>
 
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              display: 'flex',
-              padding: '8px',
-              borderRadius: '8px',
-              color: 'var(--color-ink)'
-            }}
-            className="mobile-toggle"
-            aria-label="Menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <div className="site-header__actions">
+              <a href={LOGIN_URL} className="site-header__login">Entrar</a>
+              <a href={SIGNUP_URL} className="btn btn-primary btn-sm site-header__cta">
+                <span>Começar grátis</span>
+                <ArrowRight size={15} strokeWidth={1.75} />
+              </a>
+              <button
+                type="button"
+                className="site-header__toggle"
+                aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+                aria-expanded={open}
+                aria-controls="menu-mobile"
+                onClick={() => setOpen((v) => !v)}
+              >
+                {open ? <X size={22} strokeWidth={1.75} /> : <Menu size={22} strokeWidth={1.75} />}
+              </button>
+            </div>
+          </div>
+
+          {open && (
+            <div id="menu-mobile" className="site-header__sheet">
+              {LINKS.map((link) => (
+                <a key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</a>
+              ))}
+              <a href={LOGIN_URL}>Entrar</a>
+              <a href={SIGNUP_URL} className="btn btn-primary btn-block">
+                <span>Começar grátis</span>
+                <ArrowRight size={15} strokeWidth={1.75} />
+              </a>
+            </div>
+          )}
         </div>
-      </div>
-
-      {/* Menu Mobile */}
-      {mobileMenuOpen && (
-        <div
-          style={{
-            background: 'var(--color-card)',
-            borderBottom: '1px solid var(--color-line)',
-            padding: '20px 24px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px'
-          }}
-        >
-          <a href="#resolucao" onClick={() => setMobileMenuOpen(false)} style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-ink)' }}>
-            O Que Resolve
-          </a>
-          <a href="#sistema" onClick={() => setMobileMenuOpen(false)} style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-ink)' }}>
-            Campo & Gestão
-          </a>
-          <a href="#planos" onClick={() => setMobileMenuOpen(false)} style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-ink)' }}>
-            Planos
-          </a>
-          <a href="#demonstracao" onClick={() => setMobileMenuOpen(false)} style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-ink)' }}>
-            Contato
-          </a>
-          <a
-            href="#login"
-            onClick={() => setMobileMenuOpen(false)}
-            className="btn-dark"
-            style={{ width: '100%', marginTop: '6px', justifyContent: 'center' }}
-          >
-            <LogIn size={16} />
-            <span>Sign In</span>
-          </a>
-        </div>
-      )}
-
-      <style>{`
-        @media (min-width: 820px) {
-          .desktop-nav { display: flex !important; }
-          .mobile-toggle { display: none !important; }
-        }
-        .desktop-nav a:hover {
-          color: var(--color-ink) !important;
-        }
-      `}</style>
       </header>
+    </>
   );
 }

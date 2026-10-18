@@ -1,181 +1,51 @@
-import React, { useState } from 'react';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { useInView } from '../hooks/useInView';
+import React from 'react';
+import { ArrowRight, Gift, Users, QrCode } from 'lucide-react';
+import Reveal from './Reveal';
+import { SIGNUP_URL } from '../config';
 
 export default function CTA() {
-  const [submitted, setSubmitted] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [condos, setCondos] = useState('1-5');
-  const [cardRef, cardInView] = useInView({ threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
   return (
-    <section
-      id="demonstracao"
-      className="section-stage"
-      style={{ background: '#FFFFFF', borderTop: '1px solid var(--color-line)' }}
-    >
+    <section id="comecar" className="section">
       <div className="container">
-        
-        {/* Bloco de Apresentação Direto e Noturno */}
-        <div
-          ref={cardRef}
-          className={`reveal-aperture cta-ambient-card ${cardInView ? 'is-visible' : ''}`}
-          style={{
-            maxWidth: '860px',
-            margin: '0 auto',
-            padding: 'clamp(40px, 6vh, 64px) clamp(24px, 4vw, 48px)',
-            color: '#FFFFFF',
-            textAlign: 'center',
-            position: 'relative'
-          }}
-        >
-          <span
-            className="reveal-badge-text"
-            style={{
-              display: 'inline-block',
-              fontSize: '11.5px',
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: 'var(--color-accent)',
-              marginBottom: '14px'
-            }}
-          >
-            Apresentação Prática de 15 Minutos
-          </span>
-
-          <div className="text-mask-wrapper" style={{ marginBottom: '16px' }}>
-            <h2 style={{ fontSize: 'clamp(26px, 3.2vw, 40px)', color: '#FFFFFF', fontWeight: 600, margin: 0, lineHeight: 1.18 }}>
-              <span className="reveal-text-line line-delay-1">Pronto para profissionalizar a </span>{' '}
-              <span className="reveal-text-line line-delay-2">vistoria do seu patrimônio?</span>
-            </h2>
-          </div>
-
-          <p className="reveal-sub-text" style={{ fontSize: 'clamp(14px, 1.1vw, 16px)', color: 'rgba(255, 255, 255, 0.72)', maxWidth: '620px', margin: '0 auto clamp(24px, 3.5vh, 36px)', lineHeight: 1.55 }}>
-            Veja na prática como estruturar vistorias no smartphone e centralizar chamados em Kanban 
-            para o seu condomínio ou administradora.
-          </p>
-
-          {submitted ? (
-            <div style={{ padding: '24px 0' }}>
-              <div
-                style={{
-                  width: '56px',
-                  height: '56px',
-                  borderRadius: '50%',
-                  background: 'rgba(245, 197, 24, 0.15)',
-                  color: 'var(--color-accent)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px'
-                }}
-              >
-                <CheckCircle2 size={32} />
-              </div>
-              <h3 style={{ fontSize: '20px', fontWeight: 600, color: '#FFFFFF', marginBottom: '8px' }}>
-                Solicitação Recebida com Sucesso!
-              </h3>
-              <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.75)' }}>
-                Nosso consultor entrará em contato para agendar o horário mais conveniente.
+        <div className="cta-panel theme-closing">
+          <img
+            className="cta-panel__bg"
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=60"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="cta">
+            <Reveal className="cta__copy">
+              <h2 className="h2">Comece com um prédio, de graça.</h2>
+              <p className="lead">
+                Cadastre o prédio e os andares, chame a equipe pela chave ou pelo QR Code e faça a primeira vistoria hoje.
               </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} style={{ maxWidth: '580px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
-                <input
-                  type="text"
-                  required
-                  placeholder="Seu nome completo"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  style={{
-                    padding: '13px 18px',
-                    borderRadius: '12px',
-                    background: '#181B21',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    color: '#FFFFFF',
-                    fontSize: '14px',
-                    outline: 'none',
-                    fontFamily: 'inherit',
-                    transition: 'border-color 140ms ease'
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = 'var(--color-accent)'}
-                  onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.12)'}
-                />
-                <input
-                  type="email"
-                  required
-                  placeholder="Seu melhor e-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={{
-                    padding: '13px 18px',
-                    borderRadius: '12px',
-                    background: '#181B21',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    color: '#FFFFFF',
-                    fontSize: '14px',
-                    outline: 'none',
-                    fontFamily: 'inherit',
-                    transition: 'border-color 140ms ease'
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = 'var(--color-accent)'}
-                  onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.12)'}
-                />
+              <div className="cta__actions">
+                <a href={SIGNUP_URL} className="btn btn-primary">
+                  <span>Começar grátis</span>
+                  <ArrowRight size={16} strokeWidth={1.75} />
+                </a>
+                <a href="#planos" className="btn btn-secondary">Ver planos</a>
               </div>
+            </Reveal>
 
-              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-                <select
-                  value={condos}
-                  onChange={(e) => setCondos(e.target.value)}
-                  style={{
-                    flex: 1,
-                    minWidth: '200px',
-                    padding: '13px 16px',
-                    borderRadius: '12px',
-                    background: '#181B21',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    color: '#FFFFFF',
-                    fontSize: '14px',
-                    outline: 'none',
-                    fontFamily: 'inherit',
-                    cursor: 'pointer',
-                    transition: 'border-color 140ms ease'
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = 'var(--color-accent)'}
-                  onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.12)'}
-                >
-                  <option value="1">1 Edifício / Condomínio</option>
-                  <option value="2-5">2 a 5 Edifícios</option>
-                  <option value="6-20">6 a 20 Edifícios</option>
-                  <option value="20+">Mais de 20 Edifícios</option>
-                </select>
-
-                <button
-                  type="submit"
-                  className="btn-gold"
-                  style={{
-                    padding: '13px 28px',
-                    fontSize: '14.5px',
-                    flexShrink: 0
-                  }}
-                >
-                  <span>Solicitar Contato</span>
-                  <ArrowRight size={16} />
-                </button>
-              </div>
-            </form>
-          )}
-
+            <Reveal as="ul" className="cta__facts" delay={100}>
+              <li>
+                <Gift size={20} strokeWidth={1.75} />
+                <span><strong>Plano Livre sem prazo.</strong> 1 prédio, com inspetor, responsável e visualizador.</span>
+              </li>
+              <li>
+                <Users size={20} strokeWidth={1.75} />
+                <span><strong>Equipe não paga.</strong> Só a conta de quem administra o prédio assina.</span>
+              </li>
+              <li>
+                <QrCode size={20} strokeWidth={1.75} />
+                <span><strong>Entrada rápida.</strong> Chave, QR Code ou link direto para a equipe pedir acesso.</span>
+              </li>
+            </Reveal>
+          </div>
         </div>
-
       </div>
     </section>
   );

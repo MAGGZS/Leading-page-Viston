@@ -5,13 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/brand/viston-mark.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Viston | Vistorias Prediais Andar por Andar e Gestão de Chamados</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <meta name="description" content="Vistoria predial andar por andar no celular. Cada ocorrência vira um chamado, acompanhado até o fechamento. Comece grátis com um prédio." />
+    <meta name="theme-color" content="#F6F7F9" />
+    <script>
+      /* Aplica o tema salvo antes da primeira pintura (padrão: claro). */
+      try { if (localStorage.getItem('viston-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+    </script>
+    <link rel="preload" href="/fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-latin-600.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-
